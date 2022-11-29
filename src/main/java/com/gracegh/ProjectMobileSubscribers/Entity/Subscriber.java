@@ -4,6 +4,8 @@ import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity//to enable this class to interact with the jpa database...
 @Table(name = "subscribers")
@@ -17,19 +19,20 @@ public class Subscriber {
     )
     @GeneratedValue(strategy = GenerationType.AUTO)//for generating the primary key...
     //setting the field of the class...
-    private long serviceId;
+    private long id;
     private String msisdn = "";
     @Column(name = "customer_id_owner")
     private int customerIdOwner;
     @Column(name = "customer_id_user")//we use the @Column annotation because we will be performing a native query...
     private int customerIdUser;
-    @Column(name = "service_type")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "service_type", nullable = false)
     private ServiceType serviceType;
     @Column(name = "service_start_date")
-    private long serviceStartDate = System.currentTimeMillis() / 1000;
+    private LocalDateTime serviceStartDate;
 
-    public Subscriber(long serviceId, String msisdn, int customerIdOwner, int customerIdUser, ServiceType serviceType, long serviceStartDate) {
-        this.serviceId = serviceId;
+    public Subscriber(long id, String msisdn, int customerIdOwner, int customerIdUser, ServiceType serviceType, LocalDateTime serviceStartDate) {
+        this.id = id;
         this.msisdn = msisdn;
         this.customerIdOwner = customerIdOwner;
         this.customerIdUser = customerIdUser;
@@ -42,11 +45,11 @@ public class Subscriber {
 
     //creating the getters and setters for the class...
     public long getId() {
-        return serviceId;
+        return id;
     }
 
     public void setId(int id) {
-        this.serviceId= id;
+        this.id= id;
     }
 
     public String getMsisdn() {
@@ -73,11 +76,11 @@ public class Subscriber {
         this.customerIdUser = customerIdUser;
     }
 
-    public long getServiceStartDate() {
+    public LocalDateTime getServiceStartDate() {
         return serviceStartDate;
     }
 
-    public void setServiceStartDate(long serviceStartDate) {
+    public void setServiceStartDate(LocalDateTime serviceStartDate) {
         this.serviceStartDate = serviceStartDate;
     }
 
@@ -92,7 +95,7 @@ public class Subscriber {
     @Override
     public String toString() {
         return "Subscriber{" +
-                "id=" + serviceId +
+                "id=" + id +
                 ", msisdn='" + msisdn + '\'' +
                 ", customerIdOwner=" + customerIdOwner +
                 ", customerIdUser=" + customerIdUser +

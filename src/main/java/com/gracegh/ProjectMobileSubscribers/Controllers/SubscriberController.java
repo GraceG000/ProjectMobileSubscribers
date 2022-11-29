@@ -3,14 +3,17 @@ package com.gracegh.ProjectMobileSubscribers.Controllers;
 import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-    @RestController
+    @Controller
     @RequestMapping
+    @Slf4j
     public class SubscriberController {
 
         private final ServiceSubscriber serviceSubscriber;
@@ -20,22 +23,32 @@ import java.util.List;
             this.serviceSubscriber = serviceSubscriber;
         }
 
-        @GetMapping(path = "/")
+        /*@GetMapping(path = "/")
         public String welcome(Model model){
             model.addAttribute("pageName", "Index");
             return "index";
-        }
+        }*/
 
         //returning all mobile numbers from the database...
-        @PostMapping("/all_mobile_numbers")
-        public List<Subscriber> getMsisdn(){
-            return serviceSubscriber.getMsisdn();
+        @GetMapping("/AllNumbers")
+        public String getMsisdn(Model model){
+            List<Subscriber> subscribers = serviceSubscriber.getMsisdn();
+            log.info("Inside get AllNumbers ==> {}", serviceSubscriber.getMsisdn());
+            model.addAttribute("pageName", subscribers);
+            return "index";
         }
 
-        //returning all mobile numbers that match the search criteria...
-        @GetMapping(path = "/search")
-        public List<Subscriber> searchMobileNumber(@RequestParam(required = false) String keyword){
-            return serviceSubscriber.searchNumbers(keyword);
+        @GetMapping(path="/search")
+      public String getSubscriber(Subscriber subscriber, Model model, String keyword){
+            if(keyword!= null) {
+                List<Subscriber> subscribers = serviceSubscriber.searchNumbers(keyword);
+                model.addAttribute("list", subscribers);
+            }else{
+                List<Subscriber> subscribers =serviceSubscriber.getMsisdn();
+                model.addAttribute("list", subscribers);
+                return "index";
+            }
+            return "index";
         }
 
         //adding a new subscriber...

@@ -3,6 +3,7 @@ package com.gracegh.ProjectMobileSubscribers.Repository;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
             "OR cast(f.msisdn as varchar) like ?1 " +
             "OR cast(f.service_start_date as varchar) like ?1 " +
             "OR cast(f.service_type as varchar) like ?1", nativeQuery = true)
-    List<Subscriber> searchSubscribers(String keyword);
+    List<Subscriber> searchSubscribers(@Param ("keyword")String keyword);
+
 
     List<Subscriber> findAll();
   //  List<Subscriber> findSubscriberByKeyword(String keyword);

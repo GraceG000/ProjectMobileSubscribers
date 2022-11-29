@@ -51,16 +51,17 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.findAll();
     }
 
-
-
     //return all mobile numbers that match the search criteria...
-    public List<Subscriber> searchNumbers(String keyword) {
-        /*List<Subscriber>*/
-        if (keyword.isBlank()) {
-            return subscriberRepository.findAll();
-        } else {
-            return subscriberRepository.searchSubscribers('%' + keyword + '%');
-        }
+//    public List<Subscriber> searchNumbers(String keyword) {
+//        if (keyword.isBlank()) {
+//            return subscriberRepository.findAll();
+//        } else {
+//            return subscriberRepository.searchSubscribers('%' + keyword + '%');
+//        }
+//    }
+
+    public List<Subscriber> searchNumbers(String keyword){
+        return subscriberRepository.searchSubscribers(keyword);
     }
 
     @Transactional
