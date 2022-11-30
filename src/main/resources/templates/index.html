@@ -50,7 +50,7 @@
     </label>
 
     <button type="submit" class ="btn btn-info">Search</button>
-    <button type ="submit" class = "btn btn-info">Reset</button>
+    <button type ="reset" class = "btn btn-info">Reset</button>
 </form>
 
 <br>
@@ -76,7 +76,7 @@
         <td th:text="${subscribers.serviceStartDate}"></td>
        <td th:text="${subscribers.serviceType}"></td>
         <td>
-            <a th:href="@{/{change-service-type}(id=${subscribers.id})}" class= "btn btn-primary">Edit</a>
+            <a th:href="@{/{update}(id=${subscribers.id})}" class= "btn btn-primary">Edit</a>
             <a th:href="@{/{id}(id=${subscribers.id})}" class= "btn btn-danger">Delete</a>
         </td>
     </tr>

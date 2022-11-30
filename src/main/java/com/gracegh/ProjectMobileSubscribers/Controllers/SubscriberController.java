@@ -63,15 +63,15 @@ import java.util.List;
             return "addnew";
         }
 
-        @PostMapping (path="/addsub")//this is to make this function work...
-        public String addNewSubscriber(@RequestBody Subscriber subscribers,Model model){
+        @PostMapping (path="/addNewSubscriber")//this is to make this function work...
+        public String addNewSubscriber(@ModelAttribute("subscribers") Subscriber subscribers){
             //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
             serviceSubscriber.addNewSubscriber(subscribers);
-            return "index";
+            return "redirect:/";
         }
         //changing a mobile number plan from prepaid to postpaid...
-        @PutMapping(path="/change-service-type")
+        @PutMapping(path="/update")
         public String updateServiceType(@PathVariable("change-service-type") long id, Subscriber subscriber,
                 @RequestParam(required = false)ServiceType serviceType, Model model){
 
@@ -81,7 +81,7 @@ import java.util.List;
         }
 
         //deleting a mobile subscriber...
-        @DeleteMapping(path = "{id}")
+        @GetMapping (path = "{id}")
         public void deleteStudent(@PathVariable("id") Long id){
            serviceSubscriber.deleteSubscriber(id);
         }

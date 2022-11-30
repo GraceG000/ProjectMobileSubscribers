@@ -37,7 +37,7 @@
 <body>
 <div class ="container">
     <h1>Add New Subscriber</h1>
-    <form action = "#" th:action="@{/addon}" th:object="${subscriber}" method="POST">
+    <form action = "#" th:action="@{/addNewSubscriber}" th:object="${subscriber}" method="POST">
         <div class="mb-3 mt-3">
             <input type="hidden" th:field="*{id}">
         </div>
@@ -59,10 +59,10 @@
         </div>
         <div class="mb-3">
         <label  class="form-label">Service Start Date:</label>
-            <input type="text" th:field="*{serviceStartDate}" placeholder="Id" class="form-control" size="50">
+            <input type="date" th:field="*{serviceStartDate}" placeholder="Id" class="form-control" size="50">
         </div>
         <div class="mb-3">
-        <a th:action="@{/addsub}" class="btn btn-primary btn-sm mb-3" alignment="center">Save</a>
+            <button type="submit" class="btn btn-primary btn-sm mb-3" >Save</button>
         </div>
     </form>
   <a th:href="@{/AllNumbers}" class="btn btn-primary btn-sm mb-3" alignment="center">Back to the main page</a>
