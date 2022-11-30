@@ -9,5 +9,5 @@ public interface SubscriberService {
 
     List<Subscriber> getMsisdn();
 
-    void addNewSubscriber(Subscriber subscriber);
+    Subscriber addNewSubscriber(Subscriber subscriber);
 }

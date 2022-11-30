@@ -13,34 +13,42 @@
             background-color:#f2ebe5;
         }
 
+        .btn-danger{
+            background-color:#2b262d ;
+        }
+
+        .btn-primary{
+            background-color: #9F496e;
+        }
+        .btn-info{
+            background-color:#647295 ;
+        }
+
+        #container mt-3 h1{
+            alignment: center;
+        }
+
+        .btn-sm{
+            background-color:#647295;
+            alignment: center;
+        }
     </style>
 </head>
 
 <body>
 
-<!--<h1>Welcome to Mobile Subscribers:</h1>
-
 <div class = "container mt-3">
+    <h1 style="alignment: center">Welcome to Mobile Subscribers:</h1>
+    <br>
+        <br>
     <p>You can add, search for, and update your subscriber information here.</p>
-
-
-        <label>
-            <input type ="text" name="keyword" th:value="${keyword}" placeholder="Find by any attribute, except 'id'" size = "50">
-        </label>
-
-
-</div>
-
-&lt;!&ndash;<a th:href="@{/addnew}" class="btn btn-primary btn-sm mb-3" >Add Employee</a>&ndash;&gt;-->
-<h1>Welcome to Mobile Subscribers:</h1>
-
-<div class = "container mt-3">
-    <p>You can add, search for, and update your subscriber information here.</p>
+    <br>
 
 <form action="#" th:action="@{/search}" method = "POST">
     <label>
-        <input type ="text" name="keyword" th:value="${keyword}" placeholder="Find by any attribute, except 'id'" size = "50">
+        <input type ="text" name="keyword" th:value="${keyword}" placeholder="Find by any attribute, except 'id'" size = "50" style="padding:5px" >
     </label>
+
     <button type="submit" class ="btn btn-info">Search</button>
     <button type ="submit" class = "btn btn-info">Reset</button>
 </form>
@@ -56,6 +64,7 @@
         <th>Msisdn</th>
         <th>Service_start_date</th>
         <th>Service_type</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -66,10 +75,15 @@
         <td th:text="${subscribers.msisdn}"></td>
         <td th:text="${subscribers.serviceStartDate}"></td>
        <td th:text="${subscribers.serviceType}"></td>
+        <td>
+            <a th:href="@{/{change-service-type}(id=${subscribers.id})}" class= "btn btn-primary">Edit</a>
+            <a th:href="@{/{id}(id=${subscribers.id})}" class= "btn btn-danger">Delete</a>
+        </td>
     </tr>
 
     </tbody>
 </table>
+    <a th:href="@{addon}" class="btn btn-primary btn-sm mb-3">Add Subscriber</a>
 </div>
 </body>
 </html>

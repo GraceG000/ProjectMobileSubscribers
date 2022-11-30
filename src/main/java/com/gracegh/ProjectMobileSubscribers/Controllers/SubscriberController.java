@@ -52,17 +52,38 @@ import java.util.List;
         }
 
         //adding a new subscriber...
-        @PostMapping//this is to make this function work...
-        public void addNewSubscriber(@RequestBody Subscriber subscriber){
+        @GetMapping (path="/addon")//this is to make this function work...
+        public String addNewSubscriberPage(Model model){
             //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
-            serviceSubscriber.addNewSubscriber(subscriber);
+          //  serviceSubscriber.addNewSubscriber(subscriber);
+            Subscriber subscriber= new Subscriber();
+//            Subscriber subscriber= serviceSubscriber.addNewSubscriber(subscribers);
+            model.addAttribute("subscriber", subscriber);
+            return "addnew";
         }
 
+        @PostMapping (path="/addsub")//this is to make this function work...
+        public String addNewSubscriber(@RequestBody Subscriber subscribers,Model model){
+            //@RequestBody allows us to take the subscriber details the client provides...
+            //invoking the service class...
+            serviceSubscriber.addNewSubscriber(subscribers);
+            return "index";
+        }
         //changing a mobile number plan from prepaid to postpaid...
         @PutMapping(path="/change-service-type")
-        public void updateServiceType(@PathVariable("change-service-type") long id,
-                @RequestParam(required = false)ServiceType serviceType){
+        public String updateServiceType(@PathVariable("change-service-type") long id, Subscriber subscriber,
+                @RequestParam(required = false)ServiceType serviceType, Model model){
+
+            model.addAttribute("subscriber", subscriber);
             serviceSubscriber.updateServiceType(id, serviceType);
+            return "edit";
         }
-}
+
+        //deleting a mobile subscriber...
+        @DeleteMapping(path = "{id}")
+        public void deleteStudent(@PathVariable("id") Long id){
+           serviceSubscriber.deleteSubscriber(id);
+        }
+
+    }

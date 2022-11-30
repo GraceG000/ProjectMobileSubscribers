@@ -39,8 +39,8 @@ public class ServiceSubscriber implements SubscriberService {
 
     //adding a new subscriber to the database...
     @Override
-    public void addNewSubscriber(Subscriber subscriber) {
-        subscriberRepository.save(subscriber);
+    public Subscriber addNewSubscriber(Subscriber subscriber) {
+          return subscriberRepository.save(subscriber);
     }
 
 
@@ -51,19 +51,13 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.findAll();
     }
 
-    //return all mobile numbers that match the search criteria...
-//    public List<Subscriber> searchNumbers(String keyword) {
-//        if (keyword.isBlank()) {
-//            return subscriberRepository.findAll();
-//        } else {
-//            return subscriberRepository.searchSubscribers('%' + keyword + '%');
-//        }
-//    }
 
+    //searching mobile numbers by various criteria...
     public List<Subscriber> searchNumbers(String keyword){
         return subscriberRepository.searchSubscribers(keyword);
     }
 
+    //editing the subscriber information...
     @Transactional
     public void updateServiceType(Long id, ServiceType serviceType) {
 
@@ -82,5 +76,15 @@ public class ServiceSubscriber implements SubscriberService {
                 System.out.println(" ");
                 break;
         }
+    }
+
+    //deleting a subscriber from the database...
+    public void deleteSubscriber(Long id){
+        boolean exists = subscriberRepository.existsById(id);
+
+        if(!exists){
+            throw new IllegalStateException("Subscriber with id " + id + " does not exist." );
+        }
+       subscriberRepository.deleteById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.gracegh.ProjectMobileSubscribers.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 
 import javax.persistence.*;
@@ -19,7 +20,9 @@ public class Subscriber {
     )
     @GeneratedValue(strategy = GenerationType.AUTO)//for generating the primary key...
     //setting the field of the class...
-    private long id;
+    @Column(name="id")
+    private int id;
+    @Column(name="msisdn")
     private String msisdn = "";
     @Column(name = "customer_id_owner")
     private int customerIdOwner;
@@ -29,9 +32,10 @@ public class Subscriber {
     @Column(name = "service_type", nullable = false)
     private ServiceType serviceType;
     @Column(name = "service_start_date")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime serviceStartDate;
 
-    public Subscriber(long id, String msisdn, int customerIdOwner, int customerIdUser, ServiceType serviceType, LocalDateTime serviceStartDate) {
+    public Subscriber(int id, String msisdn, int customerIdOwner, int customerIdUser, ServiceType serviceType, LocalDateTime serviceStartDate) {
         this.id = id;
         this.msisdn = msisdn;
         this.customerIdOwner = customerIdOwner;
@@ -44,7 +48,7 @@ public class Subscriber {
     }
 
     //creating the getters and setters for the class...
-    public long getId() {
+    public int getId() {
         return id;
     }
 
