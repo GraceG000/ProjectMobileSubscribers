@@ -1,5 +1,6 @@
 package com.gracegh.ProjectMobileSubscribers.Controllers;
 
+import com.gracegh.ProjectMobileSubscribers.DTO.SubscriberDTO;
 import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
@@ -64,10 +65,10 @@ import java.util.List;
         }
 
         @PostMapping (path="/addNewSubscriber")//this is to make this function work...
-        public String addNewSubscriber(@ModelAttribute("subscribers") Subscriber subscribers){
+        public String addNewSubscriber(@ModelAttribute("subscribers") SubscriberDTO subscriber){
             //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
-            serviceSubscriber.addNewSubscriber(subscribers);
+            serviceSubscriber.addNewSubscriber(subscriber);
             return "redirect:/";
         }
         //changing a mobile number plan from prepaid to postpaid...

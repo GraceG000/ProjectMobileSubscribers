@@ -1,5 +1,6 @@
 package com.gracegh.ProjectMobileSubscribers.Service;
 
+import com.gracegh.ProjectMobileSubscribers.DTO.SubscriberDTO;
 import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Repository.SubscriberRepository;
@@ -39,7 +40,12 @@ public class ServiceSubscriber implements SubscriberService {
 
     //adding a new subscriber to the database...
     @Override
-    public Subscriber addNewSubscriber(Subscriber subscriber) {
+    public Subscriber addNewSubscriber(SubscriberDTO subscriber) {
+        Subscriber newSubscriber = new Subscriber();
+        newSubscriber.setMsisdn(subscriber.getMsisdn());
+        newSubscriber.setCustomerIdOwner(subscriber.getCustomerIdOwner());
+        newSubscriber.setCustomerIdUser(subscriber.getCustomerIdUser());
+        newSubscriber.setServiceType(subscriber.getServiceType());
           return subscriberRepository.save(subscriber);
     }
 
