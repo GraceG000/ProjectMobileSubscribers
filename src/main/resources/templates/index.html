@@ -77,7 +77,7 @@
        <td th:text="${subscribers.serviceType}"></td>
         <td>
             <a th:href="@{/{update}(id=${subscribers.id})}" class= "btn btn-primary">Edit</a>
-            <a th:href="@{/{id}(id=${subscribers.id})}" class= "btn btn-danger">Delete</a>
+            <a th:href="@{/delete/{id}(id=${subscribers.id})}" th:method="DELETE" class= "btn btn-danger">Delete</a>
         </td>
     </tr>
 

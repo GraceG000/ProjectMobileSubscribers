@@ -1,6 +1,5 @@
 package com.gracegh.ProjectMobileSubscribers.Controllers;
 
-import com.gracegh.ProjectMobileSubscribers.DTO.SubscriberDTO;
 import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
@@ -24,14 +23,8 @@ import java.util.List;
             this.serviceSubscriber = serviceSubscriber;
         }
 
-        /*@GetMapping(path = "/")
-        public String welcome(Model model){
-            model.addAttribute("pageName", "Index");
-            return "index";
-        }*/
-
         //returning all mobile numbers from the database...
-        @GetMapping("/AllNumbers")
+        @GetMapping({"/AllNumbers", "/"})
         public String getMsisdn(Model model){
             List<Subscriber> subscribers = serviceSubscriber.getMsisdn();
             log.info("Inside get AllNumbers ==> {}", serviceSubscriber.getMsisdn());
@@ -61,30 +54,41 @@ import java.util.List;
             Subscriber subscriber= new Subscriber();
 //            Subscriber subscriber= serviceSubscriber.addNewSubscriber(subscribers);
             model.addAttribute("subscriber", subscriber);
-            return "addnew";
+            return "addNew";
         }
 
-        @PostMapping (path="/addNewSubscriber")//this is to make this function work...
-        public String addNewSubscriber(@ModelAttribute("subscribers") SubscriberDTO subscriber){
+//        @RequestMapping(value = "/save-subscriber", method = RequestMethod.POST, consumes="application/json")//this is to make this function work...
+        @PostMapping(value = "/save-subscriber")//this is to make this function work...
+        public String addNewSubscriber(@ModelAttribute Subscriber subscriber, Model model){
             //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
-            serviceSubscriber.addNewSubscriber(subscriber);
-            return "redirect:/";
+            Subscriber newSubscriber = serviceSubscriber.addNewSubscriber(subscriber);
+            model.addAttribute("pageName", newSubscriber);
+            return "redirect:/AllNumbers";
         }
+
+       /* @PostMapping (path="/save-subscriber-ajax")//this is to make this function work...
+        @ResponseBody
+        public Subscriber addNewSubscriberAjax(@RequestBody SubscriberDTO subscriber){
+            //@RequestBody allows us to take the subscriber details the client provides...
+            //invoking the service class...
+            return serviceSubscriber.addNewSubscriber(subscriber);
+        }*/
         //changing a mobile number plan from prepaid to postpaid...
         @PutMapping(path="/update")
-        public String updateServiceType(@PathVariable("change-service-type") long id, Subscriber subscriber,
+        public String updateServiceType(@PathVariable("id") long id, Subscriber subscriber,
                 @RequestParam(required = false)ServiceType serviceType, Model model){
 
             model.addAttribute("subscriber", subscriber);
-            serviceSubscriber.updateServiceType(id, serviceType);
-            return "edit";
+            serviceSubscriber.updateServiceType(id);
+            return "index";
         }
 
         //deleting a mobile subscriber...
-        @GetMapping (path = "{id}")
-        public void deleteStudent(@PathVariable("id") Long id){
+        @GetMapping (path = "/delete/{id}")
+        public String deleteSubscriber(@PathVariable("id") Long id){
            serviceSubscriber.deleteSubscriber(id);
+        return "redirect:/AllNumbers";
         }
 
     }

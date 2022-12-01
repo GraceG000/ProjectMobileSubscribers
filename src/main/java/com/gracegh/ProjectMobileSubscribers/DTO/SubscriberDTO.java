@@ -13,16 +13,16 @@ import java.time.LocalDateTime;
 @Data
 public class SubscriberDTO {
 
-    private int id;
+    private Integer id;
 
     private String msisdn = "";
 
-    private int customerIdOwner;
+    private Integer customerIdOwner;
 
-    private int customerIdUser;
+    private Integer customerIdUser;
 
     private ServiceType serviceType;
 
-    private LocalDateTime serviceStartDate;
+    private String serviceStartDate;
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Add New Subscribers</title>
@@ -37,35 +37,42 @@
 <body>
 <div class ="container">
     <h1>Add New Subscriber</h1>
-    <form action = "#" th:action="@{/addNewSubscriber}" th:object="${subscriber}" method="POST">
-        <div class="mb-3 mt-3">
+    <form th:action="@{/save-subscriber}" th:object="${subscriber}" method="POST">
+        <!--<div class="mb-3 mt-3">
             <input type="hidden" th:field="*{id}">
+       </div>-->
+        <div class="mb-3">
+            <label for="OwnerId" class="form-label">Owner Id:</label>
+                <input type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
         </div>
         <div class="mb-3">
-            <label  class="form-label">Owner Id:</label>
-            <input type="text" th:field="*{customerIdOwner}" placeholder="Owner id" class="form-control" size="50">
+            <label for="UserId" class="form-label">User Id:</label>
+                <input type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="UserId"  class="form-control" size="50">
         </div>
-        <div class="mb-3">
-            <label  class="form-label">User Id:</label>
-            <input type="text" th:field="*{customerIdUser}" placeholder="User id" class="form-control" size="50">
-        </div>
+
         <div class="mb-3">
         <label th:for="msisdn" class="form-label">Mobile Number:</label>
-            <input type="text" th:field="*{msisdn}" placeholder="Phone number" class="form-control" size="50">
+                <input type="text" th:field="*{msisdn}" name="msisdn" placeholder="Phone number" id="msisdn" class="form-control" size="50">
         </div>
+
         <div class="mb-3">
-        <label  class="form-label">Service Type:</label>
-            <input type="text" th:field="*{serviceType}" placeholder="Input either MobilePrepaid or MobilePostpaid" class="form-control" size="50">
+        <label  for="serviceType" class="form-label">Service Type:</label>
+                <select type="text" th:field="*{serviceType}" name="serviceType" id="serviceType" class="form-control" size="1">
+                    <option value = "MobilePrepaid"> MobilePrepaid</option>
+                    <option value = "MobilePostpaid"> MobilePostpaid</option>
+                </select>
         </div>
+
         <div class="mb-3">
-        <label  class="form-label">Service Start Date:</label>
-            <input type="date" th:field="*{serviceStartDate}" placeholder="Id" class="form-control" size="50">
+        <label for="serviceStartDate" class="form-label">Service Start Date:</label>
+                <input type="date" th:field="*{serviceStartDate}" name="serviceStartDate" placeholder="Start date" id ="serviceStartDate" class="form-control" size="50">
         </div>
+
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary btn-sm mb-3" >Save</button>
+            <button type="Submit" class="btn btn-primary btn-sm mb-3" >Save</button>
         </div>
     </form>
-  <a th:href="@{/AllNumbers}" class="btn btn-primary btn-sm mb-3" alignment="center">Back to the main page</a>
+  <a th:href="@{/AllNumbers}" class="btn btn-primary btn-sm mb-3" >Back to the main page</a>
 </div>
 </body>
 </html>

@@ -2,6 +2,9 @@ package com.gracegh.ProjectMobileSubscribers.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity//to enable this class to interact with the jpa database...
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "subscribers")
 public class Subscriber {
 
@@ -21,21 +27,21 @@ public class Subscriber {
     @GeneratedValue(strategy = GenerationType.AUTO)//for generating the primary key...
     //setting the field of the class...
     @Column(name="id")
-    private int id;
+    private Integer id;
     @Column(name="msisdn")
     private String msisdn = "";
     @Column(name = "customer_id_owner")
-    private int customerIdOwner;
+    private Integer customerIdOwner;
     @Column(name = "customer_id_user")//we use the @Column annotation because we will be performing a native query...
-    private int customerIdUser;
+    private Integer customerIdUser;
     @Enumerated(EnumType.STRING)
-    @Column(name = "service_type", nullable = false)
+    @Column(name = "service_type")
     private ServiceType serviceType;
     @Column(name = "service_start_date")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
-    private LocalDateTime serviceStartDate;
+//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    private String serviceStartDate;
 
-    public Subscriber(int id, String msisdn, int customerIdOwner, int customerIdUser, ServiceType serviceType, LocalDateTime serviceStartDate) {
+ /*   public Subscriber(Integer id, String msisdn, Integer customerIdOwner, Integer customerIdUser, ServiceType serviceType, LocalDateTime serviceStartDate) {
         this.id = id;
         this.msisdn = msisdn;
         this.customerIdOwner = customerIdOwner;
@@ -48,11 +54,11 @@ public class Subscriber {
     }
 
     //creating the getters and setters for the class...
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id= id;
     }
 
@@ -64,19 +70,19 @@ public class Subscriber {
         this.msisdn = msisdn;
     }
 
-    public int getCustomerIdOwner() {
+    public Integer getCustomerIdOwner() {
         return customerIdOwner;
     }
 
-    public void setCustomerIdOwner(int customerIdOwner) {
+    public void setCustomerIdOwner(Integer customerIdOwner) {
         this.customerIdOwner = customerIdOwner;
     }
 
-    public int getCustomerIdUser() {
+    public Integer getCustomerIdUser() {
         return customerIdUser;
     }
 
-    public void setCustomerIdUser(int customerIdUser) {
+    public void setCustomerIdUser(Integer customerIdUser) {
         this.customerIdUser = customerIdUser;
     }
 
@@ -106,7 +112,7 @@ public class Subscriber {
                 ", serviceType=" + serviceType +
                 ", serviceStartDate=" + serviceStartDate +
                 '}';
-    }
+    }*/
 
 }
 
