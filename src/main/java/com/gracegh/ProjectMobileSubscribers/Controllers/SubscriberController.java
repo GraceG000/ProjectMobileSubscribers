@@ -67,26 +67,19 @@ import java.util.List;
             return "redirect:/AllNumbers";
         }
 
-       /* @PostMapping (path="/save-subscriber-ajax")//this is to make this function work...
-        @ResponseBody
-        public Subscriber addNewSubscriberAjax(@RequestBody SubscriberDTO subscriber){
-            //@RequestBody allows us to take the subscriber details the client provides...
-            //invoking the service class...
-            return serviceSubscriber.addNewSubscriber(subscriber);
-        }*/
         //changing a mobile number plan from prepaid to postpaid...
-        @PutMapping(path="/update")
-        public String updateServiceType(@PathVariable("id") long id, Subscriber subscriber,
+        @PutMapping(path="/updateValue")
+        public String updateServiceType(@PathVariable("id") Integer id, Subscriber subscriber,
                 @RequestParam(required = false)ServiceType serviceType, Model model){
 
             model.addAttribute("subscriber", subscriber);
             serviceSubscriber.updateServiceType(id);
-            return "index";
+            return "update";
         }
 
         //deleting a mobile subscriber...
         @GetMapping (path = "/delete/{id}")
-        public String deleteSubscriber(@PathVariable("id") Long id){
+        public String deleteSubscriber(@PathVariable("id") Integer id){
            serviceSubscriber.deleteSubscriber(id);
         return "redirect:/AllNumbers";
         }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
@@ -35,8 +36,12 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
     List<Subscriber> findAll();
   //  List<Subscriber> findSubscriberByKeyword(String keyword);
 
+    
 
-    @Override
-    void deleteAllById(Iterable<? extends Long> longs);
+    boolean existsById(Integer id);
+
+    void deleteById(Integer id);
+
+    Optional<Object> findById(Integer id);
 }
 

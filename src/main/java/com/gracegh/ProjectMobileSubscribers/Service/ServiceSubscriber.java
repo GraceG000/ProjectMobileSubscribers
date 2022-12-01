@@ -42,9 +42,9 @@ public class ServiceSubscriber implements SubscriberService {
 
     //editing the subscriber information...
     @Transactional
-    public void updateServiceType(Long id) {
+    public void updateServiceType(Integer id) {
 
-        Subscriber subscriber = subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
+        Subscriber subscriber = (Subscriber) subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
                 "Subscriber with id " + id + " does not exist."));
 
         ServiceType serviceType = subscriber.getServiceType();
@@ -62,7 +62,7 @@ public class ServiceSubscriber implements SubscriberService {
     }
 
     //deleting a subscriber from the database...
-    public void deleteSubscriber(Long id){
+    public void deleteSubscriber(Integer id){
         boolean exists = subscriberRepository.existsById(id);
 
         if(!exists){
