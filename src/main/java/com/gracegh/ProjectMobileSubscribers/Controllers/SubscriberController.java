@@ -32,6 +32,14 @@ import java.util.List;
             return "index";
         }
 
+        @GetMapping({"/AllNumbersDT"})
+        public String getMsisdnDT(Model model){
+            List<Subscriber> subscribers = serviceSubscriber.getMsisdn();
+            log.info("Inside get AllNumbers ==> {}", serviceSubscriber.getMsisdn());
+            model.addAttribute("pageName", subscribers);
+            return "index-dt";
+        }
+
         @GetMapping(path="/search")
       public String getSubscriber(Subscriber subscriber, Model model, String keyword){
             if(keyword!= null) {
