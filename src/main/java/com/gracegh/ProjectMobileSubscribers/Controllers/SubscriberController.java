@@ -89,7 +89,7 @@ import java.util.List;
             //invoking the service class...
             Subscriber newSubscriber = serviceSubscriber.addNewSubscriber(subscriber);
             model.addAttribute("pageName", newSubscriber);
-            return "redirect:/AllNumbers";
+            return "redirect:/AllNumbersDT";
         }
 
         //changing a mobile number plan from prepaid to postpaid...
@@ -106,7 +106,7 @@ import java.util.List;
         @GetMapping (path = "/delete/{id}")
         public String deleteSubscriber(@PathVariable("id") Integer id){
            serviceSubscriber.deleteSubscriber(id);
-        return "redirect:/AllNumbers";
+        return "redirect:/AllNumbersDT";
         }
 
     }
