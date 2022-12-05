@@ -47,37 +47,32 @@
     <div class = "container mt-3">
         <h1 style="alignment: center">Welcome to Mobile Subscribers:</h1>
         <br>
-        <br>
         <p>You can add, search for, and update your subscriber information here.</p>
         <br>
 
-        <form action="#" th:action="@{/search}" method = "POST">
-            <label>
-                <input type ="text" name="keyword" th:value="${keyword}" placeholder="Find by any attribute, except 'id'" size = "50" style="padding:5px" >
-            </label>
+<!--        <form action="#" th:action="@{/search}" method = "POST">-->
+<!--            <label>-->
+<!--                <input type ="text" name="keyword" th:value="${keyword}" placeholder="Find by any attribute, except 'id'" size = "50" style="padding:5px" >-->
+<!--            </label>-->
 
-            <button type="submit" class ="btn btn-info">Search</button>
-            <button type ="reset" class = "btn btn-info">Reset</button>
-        </form>
-
-        <br>
-        <br>
-
+<!--            <button type="submit" class ="btn btn-info">Search</button>-->
+<!--            <button type ="reset" class = "btn btn-info">Reset</button>-->
+<!--        </form>-->
 
         <table id="example" class = "table table-striped table-bordered table-hover" style="width:100%">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Customer_id_owner</th>
-                <th>Customer_id_user</th>
-                <th>Msisdn</th>
-                <th>Service_start_date</th>
-                <th>Service_type</th>
+                <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">Id</a></th>
+                <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">Customer_id_owner</a></th>
+                <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">Customer_id_user</a></th>
+                <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">Msisdn</a></th>
+                <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">Service_start_date</a></th>
+                <th><a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">Service_type</a></th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-                <tr th:each ="subscribers:${pageName}">
+                <tr th:each ="subscribers:${subs}">
                     <td th:text="${subscribers.id}"></td>
                     <td th:text="${subscribers.customerIdOwner}"></td>
                     <td th:text="${subscribers.customerIdUser}"></td>
@@ -89,17 +84,42 @@
                         <a th:href="@{delete/{id}(id=${subscribers.id})}" th:method="DELETE" class= "btn btn-danger">Delete</a>
                     </td>
                 </tr>
+
             </tbody>
         </table>
 
-
         <a th:href="@{addon}" class="btn btn-primary btn-sm mb-3">Add Subscriber</a>
-
     </div>
     <div>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     </div>
+
+
+
+    <div th:if = "${totalPages > 1}">
+        <div class = "row col-sm-10">
+            <div class = "col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class = "col-sm-1">
+     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+     </span>
+            </div>
+            <div class = "col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>
