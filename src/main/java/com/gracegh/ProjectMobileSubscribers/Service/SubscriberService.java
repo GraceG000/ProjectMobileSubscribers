@@ -11,11 +11,14 @@ public interface SubscriberService {
     //adding a new subscriber to the database...
     /*Subscriber addNewSubscriber(SubscriberDTO subscriber);*/
 
-    //adding a new subscriber to the database...
+    //adding a new subscriber to the database...#
+    Subscriber addNewSubscriber2(Subscriber subscriber);
     Subscriber addNewSubscriber(Subscriber subscriber);
 
     List<Subscriber> getMsisdn();
 
     Page<Subscriber> getPagination(int pageNo, int pageSize, String sortField, String sortDirection);
+
+    List<Subscriber> getByKeyword(String Keyword);
 
 }

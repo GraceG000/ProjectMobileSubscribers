@@ -25,7 +25,7 @@ import java.util.List;
         }
 
         //returning all mobile numbers from the database...
-        @GetMapping({"/AllNumbers /"})
+        @GetMapping({"/AllNumbers"})
         public String getMsisdn(Model model){
             return findPaginated(1, "serviceType", "asc", model);
         }
@@ -59,15 +59,26 @@ import java.util.List;
             return "index-dt";
         }
 
-        @GetMapping(path="/search")
-      public String getSubscriber(Subscriber subscriber, Model model, String keyword){
-            if(keyword!= null) {
-                List<Subscriber> subscribers = serviceSubscriber.searchNumbers(keyword);
-                model.addAttribute("list", subscribers);
-            }else{
-                List<Subscriber> subscribers =serviceSubscriber.getMsisdn();
-                model.addAttribute("list", subscribers);
-                return "index";
+//        @GetMapping(path="/search")
+//      public String getSubscriber(Subscriber subscriber, Model model, String keyword){
+//            if(keyword!= null) {
+//                List<Subscriber> subscribers = serviceSubscriber.searchNumbers(keyword);
+//                model.addAttribute("list", subscribers);
+//            }else{
+//                List<Subscriber> subscribers =serviceSubscriber.getMsisdn();
+//                model.addAttribute("list", subscribers);
+//                return "index";
+//            }
+//            return "index";
+//        }
+        @RequestMapping(path={"/search"})
+        public String searchData(Subscriber subscriber, Model model, String keyword) {
+            if(keyword!=null) {
+                List<Subscriber> list = serviceSubscriber.getByKeyword(keyword);
+                model.addAttribute("list", list);
+            }else {
+                List<Subscriber> list = serviceSubscriber.getAllShops();
+                model.addAttribute("list", list);
             }
             return "index";
         }
@@ -83,6 +94,16 @@ import java.util.List;
             return "addNew";
         }
 
+        @GetMapping (path="/page/addon2")//this is to make this function work...
+        public String addNewSubscriberPageX(Model model){
+            //@RequestBody allows us to take the subscriber details the client provides...
+            //invoking the service class...
+          //  serviceSubscriber.addNewSubscriber(subscriber);
+            Subscriber subscriber= new Subscriber();
+            model.addAttribute("subscriber", subscriber);
+            return "AddNew2";
+        }
+
         @PostMapping(value = "/save-subscriber")//this is to make this function work...
         public String addNewSubscriber(@ModelAttribute Subscriber subscriber, Model model){
             //@RequestBody allows us to take the subscriber details the client provides...
@@ -90,6 +111,15 @@ import java.util.List;
             Subscriber newSubscriber = serviceSubscriber.addNewSubscriber(subscriber);
             model.addAttribute("pageName", newSubscriber);
             return "redirect:/AllNumbersDT";
+        }
+
+        @PostMapping(value = "/save-subscribers")//this is to make this function work...
+        public String addNewSubscriber2(@ModelAttribute Subscriber subscriber, Model model) {
+            //@RequestBody allows us to take the subscriber details the client provides...
+            //invoking the service class...
+            Subscriber newSubscriber2 = serviceSubscriber.addNewSubscriber2(subscriber);
+            model.addAttribute("pageName2", newSubscriber2);
+            return "redirect:/AllNumbers";
         }
 
         //changing a mobile number plan from prepaid to postpaid...

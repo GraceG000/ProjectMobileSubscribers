@@ -32,6 +32,9 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.save(subscriber);
     }
 
+    @Override
+    public Subscriber addNewSubscriber2(Subscriber subscriber){return subscriberRepository.save(subscriber);}
+
     //returning all mobile numbers from the database...
     @Override
     public List<Subscriber> getMsisdn() {
@@ -49,9 +52,9 @@ public class ServiceSubscriber implements SubscriberService {
 
 
     //searching mobile numbers by various criteria...
-    public List<Subscriber> searchNumbers(String keyword){
-        return subscriberRepository.searchSubscribers(keyword);
-    }
+//    public List<Subscriber> searchNumbers(String keyword){
+//        return subscriberRepository.searchSubscribers(keyword);
+//    }
 
     //editing the subscriber information...
     @Transactional
@@ -83,5 +86,9 @@ public class ServiceSubscriber implements SubscriberService {
        }
        subscriberRepository.deleteById(id);
 
+    }
+
+    public List<Subscriber> getByKeyword(String keyword){
+        return subscriberRepository.findByKeyword(keyword);
     }
 }

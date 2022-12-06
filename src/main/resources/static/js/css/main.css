@@ -1,0 +1,49 @@
+/*https://www.shutterstock.com/blog/color-palettes-for-websites*/
+body {
+    background-color:#f2ebe5;
+}
+
+.btn-danger{
+    background-color:#2b262d ;
+}
+
+.btn-primary{
+    background-color: #9F496e;
+}
+.btn-info{
+    background-color:#647295 ;
+}
+
+#container mt-3 h1{
+    alignment: center;
+}
+
+.btn-sm{
+    background-color:#647295;
+    alignment: center;
+}
+
+.row{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+@media(min-width: 768px){
+    .col-md-5{
+        flex: 0 0 auto;
+        width: 41.666666667%;
+    }
+}
+
+.dataTables_info{
+    padding-top: .85em;
+}
+
+.col-md-6{
+    min-width: 100%;
+}

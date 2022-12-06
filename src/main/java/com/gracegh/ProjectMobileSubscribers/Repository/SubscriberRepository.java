@@ -24,14 +24,14 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
     List<Subscriber> searchSubscribers(String keyword);*/
 
     //using a native query...
-    @Query(value = "select f.* from subscribers f " +
-            "where cast(f.customer_id_owner as varchar) like ?1 " +
-            "OR cast(f.customer_id_user as varchar) like ?1 " +
-            "OR cast(f.msisdn as varchar) like ?1 " +
-            "OR cast(f.service_start_date as varchar) like ?1 " +
-            "OR cast(f.service_type as varchar) like ?1", nativeQuery = true)
-    List<Subscriber> searchSubscribers(@Param ("keyword")String keyword);
-
+//    @Query(value = "select f.* from subscribers f " +
+//            "where cast(f.customer_id_owner as varchar) like ?1 " +
+//            "OR cast(f.customer_id_user as varchar) like ?1 " +
+//            "OR cast(f.msisdn as varchar) like ?1 " +
+//            "OR cast(f.service_start_date as varchar) like ?1 " +
+//            "OR cast(f.service_type as varchar) like ?1", nativeQuery = true)
+//    List<Subscriber> searchSubscribers(@Param ("keyword")String keyword);
+//
 
     List<Subscriber> findAll();
   //  List<Subscriber> findSubscriberByKeyword(String keyword);
@@ -43,5 +43,9 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
     void deleteById(Integer id);
 
     Optional<Object> findById(Integer id);
+
+    //custom query
+    @Query(value = "select * from subscribers s where s.service_type like %:keyword% or s.msisdn like %:keyword% or s.customer_id_owner like %:keyword% or customer_id_user like %:keyword% or s.service_start_date like %:keyword%", nativeQuery = true)
+    List<Subscriber> findByKeyword(@Param("keyword") String Keyword);
 }
 
