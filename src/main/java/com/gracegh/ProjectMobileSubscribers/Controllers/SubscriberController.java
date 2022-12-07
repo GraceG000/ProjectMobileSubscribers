@@ -129,7 +129,7 @@ import java.util.List;
         }
 
         //changing a mobile number plan from prepaid to postpaid...
-        @GetMapping(path="/updateValue/{id}")
+        @PutMapping(path="/updateValue/{id}")
         public ModelAndView updateSubscriber(@PathVariable(name ="id") Integer id){
 
             ModelAndView edit = new ModelAndView("addNew");

@@ -47,6 +47,6 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Integer>
 //    List<Subscriber> findByKeyword(@Param("keyword") String Keyword);
     List<Subscriber> findSubscriberByMsisdn(String keyword);
 
-    List<Subscriber> findSubscriberById(Integer id);
+    Subscriber findSubscriberById(Integer id);
 }
 

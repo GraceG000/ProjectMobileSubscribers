@@ -22,5 +22,5 @@ public interface SubscriberService {
 
     List<Subscriber> getByKeyword(String Keyword);
 
-   List<Subscriber> findSubscriberById(Integer id);
+   Subscriber findSubscriberById(Integer id);
 }

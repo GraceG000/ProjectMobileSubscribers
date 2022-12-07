@@ -58,7 +58,7 @@ public class ServiceSubscriber implements SubscriberService {
 
     //editing the subscriber information...
     @Transactional
-    public List<Subscriber> updateSubscriber(Integer id) {
+    public Subscriber updateSubscriber(Integer id) {
 
         Subscriber subscriber = (Subscriber) subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
                 "Subscriber with id " + id + " does not exist."));
@@ -81,8 +81,9 @@ public class ServiceSubscriber implements SubscriberService {
     }
 
     @Override
-    public List<Subscriber> findSubscriberById(Integer id) {
-        return subscriberRepository.findSubscriberById(id);
+    public Subscriber findSubscriberById(Integer id) {
+        Subscriber existingSub = subscriberRepository.findSubscriberById(id);
+        return existingSub;
     }
 
 
