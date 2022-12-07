@@ -1,6 +1,5 @@
 package com.gracegh.ProjectMobileSubscribers.Service;
 
-import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Repository.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -58,37 +58,32 @@ public class ServiceSubscriber implements SubscriberService {
 
     //editing the subscriber information...
     @Transactional
-    public void updateServiceType(Integer id) {
+    public List<Subscriber> updateSubscriber(Integer id) {
 
         Subscriber subscriber = (Subscriber) subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
                 "Subscriber with id " + id + " does not exist."));
-
-        ServiceType serviceType = subscriber.getServiceType();
-        switch (serviceType) {
-            case MobilePrepaid:
-                subscriber.setServiceType(ServiceType.MobilePostpaid);
-                break;
-            case MobilePostpaid:
-                subscriber.setServiceType(ServiceType.MobilePrepaid);
-                break;
-            default:
-                System.out.println(" ");
-                break;
-        }
+        return subscriberRepository.findSubscriberById(id);
     }
 
     //deleting a subscriber from the database...
-    public void deleteSubscriber(Integer id){
+    @Transactional
+    public List<Subscriber> deleteSubscriber(Integer id){
         boolean exists = subscriberRepository.existsById(id);
 
         if(!exists){
             throw new IllegalStateException("Subscriber with id " + id + " does not exist." );
        }
-       subscriberRepository.deleteById(id);
-
+       return subscriberRepository.deleteSubscriberById(id);
     }
 
     public List<Subscriber> getByKeyword(String keyword){
-        return subscriberRepository.findByKeyword(keyword);
+        return subscriberRepository.findSubscriberByMsisdn(keyword);
     }
+
+    @Override
+    public List<Subscriber> findSubscriberById(Integer id) {
+        return subscriberRepository.findSubscriberById(id);
+    }
+
+
 }

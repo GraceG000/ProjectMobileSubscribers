@@ -6,9 +6,11 @@ import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -72,14 +74,18 @@ import java.util.List;
 //            return "index";
 //        }
         @RequestMapping(path={"/search"})
-        public String searchData(Subscriber subscriber, Model model, String keyword) {
-            if(keyword!=null) {
+
+        public String searchData(@ModelAttribute(value = "keyword") String subscriber, Model model, @Param(value="keyword") String keyword) {
+       /*   if(keyword!=null) {
                 List<Subscriber> list = serviceSubscriber.getByKeyword(keyword);
                 model.addAttribute("list", list);
             }else {
-                List<Subscriber> list = serviceSubscriber.getAllShops();
+                List<Subscriber> list = serviceSubscriber.getMsisdn();
                 model.addAttribute("list", list);
-            }
+           }
+            return "index";*/
+          //  return serviceSubscriber.getByKeyword(keyword);
+            model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword));
             return "index";
         }
 
@@ -123,20 +129,21 @@ import java.util.List;
         }
 
         //changing a mobile number plan from prepaid to postpaid...
-        @PutMapping(path="/updateValue")
-        public String updateServiceType(@PathVariable("id") Integer id, Subscriber subscriber,
-                @RequestParam(required = false)ServiceType serviceType, Model model){
+        @GetMapping(path="/updateValue/{id}")
+        public ModelAndView updateSubscriber(@PathVariable(name ="id") Integer id){
 
-            model.addAttribute("subscriber", subscriber);
-            serviceSubscriber.updateServiceType(id);
-            return "update";
+            ModelAndView edit = new ModelAndView("addNew");
+            Subscriber subscriber = (Subscriber) serviceSubscriber.findSubscriberById(id);
+            edit.addObject("subscriber", subscriber);
+            return edit;
         }
 
         //deleting a mobile subscriber...
         @GetMapping (path = "/delete/{id}")
-        public String deleteSubscriber(@PathVariable("id") Integer id){
-           serviceSubscriber.deleteSubscriber(id);
-        return "redirect:/AllNumbersDT";
+        public String deleteSubscriber(@PathVariable(name="id") Integer id){
+          serviceSubscriber.deleteSubscriber(id);
+          return "redirect:/AllNumbers";
+
         }
 
     }

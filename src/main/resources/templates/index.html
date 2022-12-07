@@ -19,18 +19,24 @@
 </head>
 <body>
 
+<ul>
+    <li><a class="active" th:href="@{/AllNumbers}">HomeBP</a></li>
+    <li><a th:href="@{/AllNumbersDT}">HomeFP</a></li>
+</ul>
 
 <div class = "container mt-3">
 
-<h1>Welcome to Mobile Subscribers</h1>
 
+<h1>Welcome to Mobile Subscribers</h1>
+<br>
     <div class="col-sm-12 col-md-6" align="right">
-        <form action="#" th:action="@{/search}" method = "GET">
+        <form th:action="@{/search}" method = "get">
         <label>
-            Search:<input type ="text"  th:action="@{/search}" placeholder="Type here" size = "30" style="padding:5px" >
+           <input type ="text" name="keyword" th:value="${keyword}" placeholder="Type here" class="form-control-sm" size = "30" style="padding:5px" >
         </label>
-            <button type="submit" class="btn btn-info">Search</button>
-            <button type="submit" class="btn btn-info">Reset</button>
+
+           <button type="submit" class="btn btn-info">Search</button>
+            <a th:href="@{/AllNumbers}" class="btn btn-info">Reset</a>
         </form>
     </div>
 
@@ -57,8 +63,8 @@
                 <td th:text="${subscribers.serviceStartDate}"></td>
                 <td th:text="${subscribers.serviceType}"></td>
                 <td>
-                    <a th:href="@{update/{id}(id=${subscribers.id})}" th:method="EDIT" class= "btn btn-primary">Edit</a>
-                    <a th:href="@{delete/{id}(id=${subscribers.id})}" th:method="DELETE" class= "btn btn-danger">Delete</a>
+                    <a th:href="@{/update/{id}(id=${subscribers.id})}"  class= "btn btn-primary">Edit</a>
+                    <a th:href="@{/delete/{id}(id=${subscribers.id})}"  class= "btn btn-danger">Delete</a>
                 </td>
             </tr>
 

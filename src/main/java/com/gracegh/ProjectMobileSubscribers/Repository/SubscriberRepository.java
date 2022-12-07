@@ -2,16 +2,13 @@ package com.gracegh.ProjectMobileSubscribers.Repository;
 
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
+public interface SubscriberRepository extends JpaRepository<Subscriber, Integer> {
 
 //    List<Subscriber> searchSubscribersByCustomerIdOwnerOrCustomerIdUserOrServiceTypeOrServiceStartDateOrMsisdn(String keyword);
 
@@ -40,12 +37,16 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
 
     boolean existsById(Integer id);
 
-    void deleteById(Integer id);
+    List<Subscriber> deleteSubscriberById(Integer id);
 
-    Optional<Object> findById(Integer id);
+
+    Optional<Subscriber> findById(Integer id);
 
     //custom query
-    @Query(value = "select * from subscribers s where s.service_type like %:keyword% or s.msisdn like %:keyword% or s.customer_id_owner like %:keyword% or customer_id_user like %:keyword% or s.service_start_date like %:keyword%", nativeQuery = true)
-    List<Subscriber> findByKeyword(@Param("keyword") String Keyword);
+// @Query(value = "select * from subscribers s where s.service_type like %:keyword% or s.msisdn like %:keyword% or s.customer_id_owner like %:keyword% or customer_id_user like %:keyword% or s.service_start_date like %:keyword%", nativeQuery = true)
+//    List<Subscriber> findByKeyword(@Param("keyword") String Keyword);
+    List<Subscriber> findSubscriberByMsisdn(String keyword);
+
+    List<Subscriber> findSubscriberById(Integer id);
 }
 

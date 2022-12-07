@@ -30,7 +30,7 @@ public class Subscriber {
     private Integer id;
     @Column(name="msisdn")
     private String msisdn = "";
-    @Column(name = "customer_id_owner")
+    @Column(name = "customer_id_owner",unique = true)
     private Integer customerIdOwner;
     @Column(name = "customer_id_user")//we use the @Column annotation because we will be performing a native query...
     private Integer customerIdUser;
