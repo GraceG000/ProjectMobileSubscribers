@@ -96,5 +96,8 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.findSubscriberByMsisdn(keyword);
     }
 
+    public long countSubscribers(){
+        return subscriberRepository.count();
+    }
 
 }

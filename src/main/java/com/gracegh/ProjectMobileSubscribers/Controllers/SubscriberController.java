@@ -149,4 +149,11 @@ import java.util.List;
 
         }
 
+        @GetMapping(path="/countSubscribers")
+        @ResponseBody
+        public long countSubscribers(){
+
+            return serviceSubscriber.countSubscribers();
+        }
+
     }
