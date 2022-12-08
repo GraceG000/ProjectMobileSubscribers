@@ -4,7 +4,6 @@ import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SubscriberService {
 
@@ -22,5 +21,8 @@ public interface SubscriberService {
 
     List<Subscriber> getByKeyword(String Keyword);
 
-   Subscriber findSubscriberById(Integer id);
+//   Subscriber findSubscriberById(Integer id);
+
+   Subscriber updateSubscriberPage(Integer id);
+   Subscriber updateSubscriber(Integer id,Subscriber subscriber);
 }

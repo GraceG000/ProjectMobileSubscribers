@@ -9,9 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 
 @Service
@@ -51,18 +52,33 @@ public class ServiceSubscriber implements SubscriberService {
     }
 
 
-    //searching mobile numbers by various criteria...
-//    public List<Subscriber> searchNumbers(String keyword){
-//        return subscriberRepository.searchSubscribers(keyword);
-//    }
-
     //editing the subscriber information...
     @Transactional
-    public Subscriber updateSubscriber(Integer id) {
+    public Subscriber updateSubscriberPage(Integer id) {
 
         Subscriber subscriber = (Subscriber) subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
                 "Subscriber with id " + id + " does not exist."));
-        return subscriberRepository.findSubscriberById(id);
+
+        return subscriber;
+    }
+
+    @Transactional
+    public Subscriber updateSubscriber(Integer id, Subscriber subscriber){
+        Subscriber existingSubscriber = (Subscriber) subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
+                "Subscriber with id " + id + " does not exist."));
+
+        if(existingSubscriber.getMsisdn() != null && existingSubscriber.getMsisdn().length() > 0 && !Objects.equals(subscriber.getMsisdn(), existingSubscriber.getMsisdn())){
+            existingSubscriber.setMsisdn(subscriber.getMsisdn());
+        }
+        if(existingSubscriber.getServiceType() != null && !Objects.equals(subscriber.getServiceType(), existingSubscriber.getServiceType())){
+            existingSubscriber.setServiceType(subscriber.getServiceType());
+        }
+
+        if(existingSubscriber.getServiceType() != null && !Objects.equals(existingSubscriber.getServiceStartDate(), subscriber.getServiceStartDate())){
+            existingSubscriber.setServiceStartDate(subscriber.getServiceStartDate());
+        }
+
+        return subscriberRepository.save(existingSubscriber);
     }
 
     //deleting a subscriber from the database...
@@ -78,12 +94,6 @@ public class ServiceSubscriber implements SubscriberService {
 
     public List<Subscriber> getByKeyword(String keyword){
         return subscriberRepository.findSubscriberByMsisdn(keyword);
-    }
-
-    @Override
-    public Subscriber findSubscriberById(Integer id) {
-        Subscriber existingSub = subscriberRepository.findSubscriberById(id);
-        return existingSub;
     }
 
 

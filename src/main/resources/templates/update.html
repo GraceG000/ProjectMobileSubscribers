@@ -37,11 +37,12 @@
 <body>
 <div class ="container">
     <h1>Update Subscriber</h1>
-    <form th:action="@{/save-subscribers}" th:object="${subscriber}" method="POST">
+    <form th:action="@{/updateValue/{id}(id=${subscriber.id})}" th:object="${subscriber}" method="POST">
         <div class="mb-3">
         <label for="OwnerId" class="form-label">Owner Id:</label>
         <input type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
 </div>
+
 <div class="mb-3">
     <label for="UserId" class="form-label">User Id:</label>
     <input type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="UserId"  class="form-control" size="50" >
@@ -66,7 +67,7 @@
 </div>
 
 <div class="mb-3">
-    <button type="Submit" class="btn btn-primary btn-sm mb-3" >Save</button>
+    <button type="Submit" class="btn btn-primary btn-sm mb-3" >Update Subscriber</button>
 </div>
     </form>
     <a th:href="@{/AllNumbers}" class="btn btn-primary btn-sm mb-3" >Back to the main page</a>

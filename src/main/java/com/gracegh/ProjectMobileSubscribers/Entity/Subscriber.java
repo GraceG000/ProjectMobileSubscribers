@@ -28,11 +28,11 @@ public class Subscriber {
     //setting the field of the class...
     @Column(name="id")
     private Integer id;
-    @Column(name="msisdn")
+    @Column(name="msisdn", unique = true)
     private String msisdn = "";
     @Column(name = "customer_id_owner",unique = true)
     private Integer customerIdOwner;
-    @Column(name = "customer_id_user")//we use the @Column annotation because we will be performing a native query...
+    @Column(name = "customer_id_user", unique = true)//we use the @Column annotation because we will be performing a native query...
     private Integer customerIdUser;
     @Enumerated(EnumType.STRING)
     @Column(name = "service_type")
@@ -41,78 +41,6 @@ public class Subscriber {
 //    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private String serviceStartDate;
 
- /*   public Subscriber(Integer id, String msisdn, Integer customerIdOwner, Integer customerIdUser, ServiceType serviceType, LocalDateTime serviceStartDate) {
-        this.id = id;
-        this.msisdn = msisdn;
-        this.customerIdOwner = customerIdOwner;
-        this.customerIdUser = customerIdUser;
-        this.serviceType = serviceType;
-        this.serviceStartDate = serviceStartDate;
-    }
-
-    public Subscriber() {
-    }
-
-    //creating the getters and setters for the class...
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id= id;
-    }
-
-    public String getMsisdn() {
-        return msisdn;
-    }
-
-    public void setMsisdn(String msisdn) {
-        this.msisdn = msisdn;
-    }
-
-    public Integer getCustomerIdOwner() {
-        return customerIdOwner;
-    }
-
-    public void setCustomerIdOwner(Integer customerIdOwner) {
-        this.customerIdOwner = customerIdOwner;
-    }
-
-    public Integer getCustomerIdUser() {
-        return customerIdUser;
-    }
-
-    public void setCustomerIdUser(Integer customerIdUser) {
-        this.customerIdUser = customerIdUser;
-    }
-
-    public LocalDateTime getServiceStartDate() {
-        return serviceStartDate;
-    }
-
-    public void setServiceStartDate(LocalDateTime serviceStartDate) {
-        this.serviceStartDate = serviceStartDate;
-    }
-
-    public ServiceType getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(ServiceType serviceType) {
-        this.serviceType = serviceType;
-    }
-
-    @Override
-    public String toString() {
-        return "Subscriber{" +
-                "id=" + id +
-                ", msisdn='" + msisdn + '\'' +
-                ", customerIdOwner=" + customerIdOwner +
-                ", customerIdUser=" + customerIdUser +
-                ", serviceType=" + serviceType +
-                ", serviceStartDate=" + serviceStartDate +
-                '}';
-    }*/
 
 }
 

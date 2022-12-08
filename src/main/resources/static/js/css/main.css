@@ -12,6 +12,8 @@ body {
 }
 .btn-info{
     background-color:#647295 ;
+    color:white;
+
 }
 
 #container mt-3 h1{
@@ -70,4 +72,18 @@ li a {
 
 li a:hover {
     background-color:#647295;
+}
+
+a{
+    color:black;
+}
+
+a:link {
+    text-decoration: none;
+}
+.pagination{
+    display:inline-block;
+    padding: 8px 16px;
+    background-color:#f2ebe5 ;
+    color:black;
 }

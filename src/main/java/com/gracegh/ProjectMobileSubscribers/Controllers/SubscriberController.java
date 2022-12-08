@@ -1,6 +1,5 @@
 package com.gracegh.ProjectMobileSubscribers.Controllers;
 
-import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -61,30 +59,10 @@ import java.util.List;
             return "index-dt";
         }
 
-//        @GetMapping(path="/search")
-//      public String getSubscriber(Subscriber subscriber, Model model, String keyword){
-//            if(keyword!= null) {
-//                List<Subscriber> subscribers = serviceSubscriber.searchNumbers(keyword);
-//                model.addAttribute("list", subscribers);
-//            }else{
-//                List<Subscriber> subscribers =serviceSubscriber.getMsisdn();
-//                model.addAttribute("list", subscribers);
-//                return "index";
-//            }
-//            return "index";
-//        }
         @RequestMapping(path={"/search"})
 
         public String searchData(@ModelAttribute(value = "keyword") String subscriber, Model model, @Param(value="keyword") String keyword) {
-       /*   if(keyword!=null) {
-                List<Subscriber> list = serviceSubscriber.getByKeyword(keyword);
-                model.addAttribute("list", list);
-            }else {
-                List<Subscriber> list = serviceSubscriber.getMsisdn();
-                model.addAttribute("list", list);
-           }
-            return "index";*/
-          //  return serviceSubscriber.getByKeyword(keyword);
+
             model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword));
             return "index";
         }
@@ -128,16 +106,41 @@ import java.util.List;
             return "redirect:/AllNumbers";
         }
 
-        //changing a mobile number plan from prepaid to postpaid...
-        @PutMapping(path="/updateValue/{id}")
-        public ModelAndView updateSubscriber(@PathVariable(name ="id") Integer id){
+        //updating subscriber information...
 
-            ModelAndView edit = new ModelAndView("addNew");
-            Subscriber subscriber = (Subscriber) serviceSubscriber.findSubscriberById(id);
-            edit.addObject("subscriber", subscriber);
-            return edit;
+        @GetMapping(path="/updatePage/{id}")
+        public String updateSubscriberPage(Model model, Subscriber subscriber,@PathVariable(name = "id") Integer id){
+            //@RequestBody allows us to take the subscriber details the client provides...
+            //invoking the service class...
+            //  serviceSubscriber.addNewSubscriber(subscriber);
+
+            model.addAttribute("subscriber",   serviceSubscriber.updateSubscriberPage(id));
+            return "update";
         }
 
+        @PostMapping(path="/updateValue/{id}")
+        public String updateSubscriber(@ModelAttribute Subscriber subscriber, Model model,@PathVariable(name="id")Integer id){
+            Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
+            model.addAttribute("updated", changedSubscriber);
+            return "redirect:/AllNumbers";
+        }
+
+        @GetMapping(path="/updatePage2/{id}")
+        public String updateSubscriberPageX(Model model, Subscriber subscriber,@PathVariable(name = "id") Integer id){
+            //@RequestBody allows us to take the subscriber details the client provides...
+            //invoking the service class...
+            //  serviceSubscriber.addNewSubscriber(subscriber);
+
+            model.addAttribute("subscriber",   serviceSubscriber.updateSubscriberPage(id));
+            return "update";
+        }
+
+        @PostMapping(path="/updateValue2/{id}")
+        public String updateSubscriberX(@ModelAttribute Subscriber subscriber, Model model,@PathVariable(name="id")Integer id){
+            Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
+            model.addAttribute("updated", changedSubscriber);
+            return "redirect:/AllNumbersDT";
+        }
         //deleting a mobile subscriber...
         @GetMapping (path = "/delete/{id}")
         public String deleteSubscriber(@PathVariable(name="id") Integer id){
