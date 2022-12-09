@@ -1,5 +1,6 @@
 package com.gracegh.ProjectMobileSubscribers.Service;
 
+import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Repository.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,23 @@ public class ServiceSubscriber implements SubscriberService {
 
     public List<Subscriber> getByKeyword(String keyword){
         return subscriberRepository.findSubscriberByMsisdn(keyword);
+    }
+//
+//    public long countSubscribersStats1(){
+//        return subscriberRepository.countSubscriberByServiceType(ServiceType.valueOf("MobilePostpaid"));
+//    }
+//
+//    public long countSubscribersStats2(){
+//        return subscriberRepository.countSubscriberByServiceTypeIs(ServiceType.valueOf("MobilePrepaid"));
+//    }
+
+
+    public long countSubscribersStats1(){
+        return subscriberRepository.countSubscriberByServiceType(ServiceType.MobilePrepaid);
+    }
+
+    public long countSubscribersStats2(){
+        return subscriberRepository.countSubscriberByServiceTypeIs(ServiceType.MobilePostpaid);
     }
 
     public long countSubscribers(){

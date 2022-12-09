@@ -26,6 +26,10 @@ public interface SubscriberService {
    Subscriber updateSubscriberPage(Integer id);
    Subscriber updateSubscriber(Integer id,Subscriber subscriber);
 
-   long countSubscribers();
+ long countSubscribers();
+
+ long countSubscribersStats1();
+
+ long countSubscribersStats2();
 
 }

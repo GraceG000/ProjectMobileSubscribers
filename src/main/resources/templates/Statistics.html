@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Statistics</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <style>
+        /*https://www.shutterstock.com/blog/color-palettes-for-websites*/
+        body {
+            background-color:#f2ebe5;
+        }
+
+        .container mt-3{
+            alignment: center;
+        }
+
+        .card{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body{
+            padding:50px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .container mt-3{
+            margin-top: 500%;
+            alignment: center;
+
+        }
+
+        .card-header{
+            background-color:#647295;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color:#2b262d ;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color:#647295;
+        }
+
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+            alignment: center;
+        }
+
+        .icon-class{
+            font-size: 80px;
+            color:#2b262d;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a class="active" th:href="@{/AllNumbers}">Home Backend-Pag</a></li>
+    <li><a th:href="@{/AllNumbersDT}">Home Frontend-Pag</a></li>
+    <li><a th:href="@{/stats}">Statisitcs</a></li>
+</ul>
+
+<div class="container mt-3">
+<div>
+    <h2>Subscriber Statistics</h2>
+    </div><br>
+    <div class="row">
+        <div class="column">
+    <div class="card">
+
+        <div class="card-body d-flex">
+            <ion-icon class="icon-class" name="people-outline"></ion-icon>
+            <div>
+            <span th:text="${countSubscribers}"></span>
+                <div>Total Subscribers </div>
+                </div>
+        </div>
+    </div>
+    </div>
+
+        <div class="column">
+    <div class="card">
+        <div class="card-body d-flex">
+            <ion-icon class="icon-class" name="call-outline"></ion-icon>
+            <div>
+                <span th:text="${countPrepaid}"></span>
+                <div>Total Prepaid Users </div>
+            </div>
+
+        </div>
+    </div>
+        </div>
+        <div class="column">
+    <div class="card">
+        <div class="card-body d-flex">
+            <ion-icon class="icon-class" name="call-outline"></ion-icon>
+            <div>
+                <span th:text="${countPostpaid}"></span>
+                <div>Total Postpaid Users</div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

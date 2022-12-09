@@ -1,5 +1,6 @@
 package com.gracegh.ProjectMobileSubscribers.Repository;
 
+import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -48,5 +49,10 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Integer>
     List<Subscriber> findSubscriberByMsisdn(String keyword);
 
     Subscriber findSubscriberById(Integer id);
+
+    long countSubscriberByServiceType(ServiceType serviceType);
+    long countSubscriberByServiceTypeIs(ServiceType serviceType);
+
+
 }
 

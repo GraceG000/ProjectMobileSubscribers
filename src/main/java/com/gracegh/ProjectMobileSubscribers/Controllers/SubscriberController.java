@@ -148,12 +148,37 @@ import java.util.List;
           return "redirect:/AllNumbers";
 
         }
+//
+//        @GetMapping(path="/countSubscribers")
+//        @ResponseBody
+//        public long countSubscribers(){
+//
+//            return serviceSubscriber.countSubscribers();
+//            }
+//            @GetMapping(path="/countSubscribers")
+//        @ResponseBody
+//        public long countPostpaid(){
+//
+//            return serviceSubscriber.countSubscribersStats1();
+//            }
+//            @GetMapping(path="/countSubscribers")
+//        @ResponseBody
+//        public long countPrepaid(){
+//
+//            return serviceSubscriber.countSubscribersStats2();
+//            }
+//
 
-        @GetMapping(path="/countSubscribers")
-        @ResponseBody
-        public long countSubscribers(){
+        @GetMapping(path="/stats")
+        public String setStatsPage(Model model){
+            long count = serviceSubscriber.countSubscribers();
+            long count2 = serviceSubscriber.countSubscribersStats1();
+            long count3 = serviceSubscriber.countSubscribersStats2();
 
-            return serviceSubscriber.countSubscribers();
+            model.addAttribute("countSubscribers", count);
+            model.addAttribute("countPrepaid", count2);
+            model.addAttribute("countPostpaid", count3);
+
+            return "Statistics";
         }
-
     }
