@@ -1,5 +1,6 @@
 package com.gracegh.ProjectMobileSubscribers.Service;
 
+import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import org.springframework.data.domain.Page;
 
@@ -19,7 +20,12 @@ public interface SubscriberService {
 
     Page<Subscriber> getPagination(int pageNo, int pageSize, String sortField, String sortDirection);
 
-    List<Subscriber> getByKeyword(String Keyword);
+    Page<Subscriber> searchSort(int pageNo, int pageSize, String sortField, String sortDirection, String keyword);
+
+    //  List<Subscriber> getByKeyword(Integer keyword1);
+    List<Subscriber> Search(String keyword);
+
+ //   List<Subscriber> SearchIdOwner(Integer keyword2);
 
 //   Subscriber findSubscriberById(Integer id);
 
@@ -31,5 +37,6 @@ public interface SubscriberService {
  long countSubscribersStats1();
 
  long countSubscribersStats2();
+
 
 }

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +34,9 @@ public class ServiceSubscriber implements SubscriberService {
     }
 
     @Override
-    public Subscriber addNewSubscriber2(Subscriber subscriber){return subscriberRepository.save(subscriber);}
+    public Subscriber addNewSubscriber2(Subscriber subscriber){
+        return subscriberRepository.save(subscriber);
+    }
 
     //returning all mobile numbers from the database...
     @Override
@@ -50,6 +51,21 @@ public class ServiceSubscriber implements SubscriberService {
 
         Pageable pageable = PageRequest.of(pageNo -1 , pageSize, sort);
         return this.subscriberRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Subscriber> searchSort(int pageNo, int pageSize, String sortField, String sortDirection, String keyword){
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
+                : Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo -1 , pageSize, sort);
+        return subscriberRepository.searchSubscriber(keyword.trim().toLowerCase(), pageable);
+    }
+
+
+    @Override
+    public List<Subscriber> Search(String keyword) {
+        return subscriberRepository.findAll(keyword);
     }
 
 
@@ -96,14 +112,7 @@ public class ServiceSubscriber implements SubscriberService {
     public List<Subscriber> getByKeyword(String keyword){
         return subscriberRepository.findSubscriberByMsisdn(keyword);
     }
-//
-//    public long countSubscribersStats1(){
-//        return subscriberRepository.countSubscriberByServiceType(ServiceType.valueOf("MobilePostpaid"));
-//    }
-//
-//    public long countSubscribersStats2(){
-//        return subscriberRepository.countSubscriberByServiceTypeIs(ServiceType.valueOf("MobilePrepaid"));
-//    }
+
 
 
     public long countSubscribersStats1(){
@@ -117,5 +126,6 @@ public class ServiceSubscriber implements SubscriberService {
     public long countSubscribers(){
         return subscriberRepository.count();
     }
+
 
 }

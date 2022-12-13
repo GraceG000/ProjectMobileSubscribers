@@ -93,3 +93,12 @@ a:link {
     background-color:#f2ebe5 ;
     color:black;
 }
+
+.highlight{
+    background-color:#9F496e;
+}
+
+.pagination-container{
+    display: flex;
+    justify-content: space-between;
+}

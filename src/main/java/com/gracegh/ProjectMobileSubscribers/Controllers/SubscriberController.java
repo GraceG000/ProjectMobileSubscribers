@@ -1,10 +1,12 @@
 package com.gracegh.ProjectMobileSubscribers.Controllers;
 
+import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,14 +29,13 @@ import java.util.List;
         //returning all mobile numbers from the database...
         @GetMapping({"/AllNumbers"})
         public String getMsisdn(Model model){
-            return findPaginated(1, "serviceType", "asc", model);
+            return findPaginated(1, "serviceType", "asc","",10, model);
         }
-        @GetMapping("/page/{pageNo}")
+ /*       @GetMapping("/page/{pageNo}")
         public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-                                    @RequestParam("sortField") String sortField,
-                                    @RequestParam("sortDir") String sortDir,
-                                    Model model) {
-            int pageSize = 10;
+                                    @RequestParam(value = "sortField", defaultValue = "id") String sortField,
+                                    @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
+                      int pageSize = 10;
 
             Page < Subscriber > page = serviceSubscriber.getPagination(pageNo, pageSize, sortField, sortDir);
             List <Subscriber > subscribers = page.getContent();
@@ -49,6 +50,37 @@ import java.util.List;
 
             model.addAttribute("subs", subscribers);
             return "index";
+        }*/
+ @GetMapping("/page/{pageNo}")
+        public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                    @RequestParam(value = "sortField", defaultValue = "id") String sortField,
+                                    @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
+                                    @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                    Model model) {
+//            int pageSize = 10;
+
+            Page <Subscriber> page = null;
+
+            if(keyword.trim() == "") {
+                page = serviceSubscriber.getPagination(pageNo, pageSize, sortField, sortDir);
+            }
+            else{
+               page = serviceSubscriber.searchSort(pageNo,pageSize,sortField,sortDir,keyword);
+            }
+             List <Subscriber > subscribers = page.getContent();
+             model.addAttribute("currentPage", pageNo);
+             model.addAttribute("totalPages", page.getTotalPages());
+             model.addAttribute("totalItems", page.getTotalElements());
+             model.addAttribute("keyword", keyword);
+             model.addAttribute("pageSize", pageSize);
+             model.addAttribute("sortField", sortField);
+             model.addAttribute("sortDir", sortDir);
+             model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+             model.addAttribute("subs", subscribers);
+
+             return "index";
         }
 
         @GetMapping({"/AllNumbersDT"})
@@ -59,11 +91,25 @@ import java.util.List;
             return "index-dt";
         }
 
+//        @RequestMapping(path={"/search"})
+//
+//        public String searchData(@ModelAttribute(value = "keyword") String subscriber, Model model, @Param(value="keyword") Integer keyword1) {
+//
+//            model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword1));
+//            return "index";
+//        }
+/*
+        @Param(value="keyword1")Integer keyword1,
+        @Param(value="keyword2")Integer keyword2,
+        @Param(value="Program")ServiceType Program*/
         @RequestMapping(path={"/search"})
 
         public String searchData(@ModelAttribute(value = "keyword") String subscriber, Model model, @Param(value="keyword") String keyword) {
-
-            model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword));
+/*
+            model.addAttribute("subs",serviceSubscriber.SearchServiceType(Program));
+            model.addAttribute("subs",serviceSubscriber.SearchIdOwner(keyword2));
+            model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword1));*/
+            model.addAttribute("subs",serviceSubscriber.Search(keyword));
             return "index";
         }
 
