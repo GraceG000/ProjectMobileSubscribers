@@ -85,10 +85,24 @@
 
 </div>
    <div th:if = "${totalPages > 0}" class = "container mt-3 pagination-container">
-        <div>
+   <!--     <div>
             Show entries
             <label>
-                <select name="pageSize" aria-controls="example" class="form-select form-select-sm" th:action="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">
+&lt;!&ndash;
+                <select name="pageSize" aria-controls="example" class="form-select form-select-sm" id = "pageSizeSelect" th:action="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">
+&ndash;&gt;
+                <select name="pageSize" aria-controls="example" class="form-select form-select-sm" id = "pageSizeSelect" >
+                    <option value="10" th:selected="${pageSize==10}">10</option>
+                    <option value="25" th:selected="${pageSize==25}">25</option>
+                    <option value="50" th:selected="${pageSize==50}">50</option>
+                    <option value="100" th:selected="${pageSize==100}">100</option>
+                </select>
+            </label>
+        </div>-->
+            <div>
+            Show entries
+            <label>
+                <select name="pageSize" aria-controls="example" class="form-select form-select-sm" id = "pageSizeSelect" th:data-href="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}+ '&keyword='+${keyword}}">
                     <option value="10" th:selected="${pageSize==10}">10</option>
                     <option value="25" th:selected="${pageSize==25}">25</option>
                     <option value="50" th:selected="${pageSize==50}">50</option>
@@ -146,6 +160,21 @@
 <!--     </div>-->
 
 <!-- </div>-->
-<script src= "../static/js/js/main.js" th:src="@{/js/js/main.js}"></script>
+<!--<script src= "../static/js/js/main.js" th:src="@{/js/js/main.js}"></script>-->
+
+<script th:inline="javascript">
+    $(document).ready(() => {
+        changePageAndSize();
+    });
+
+    changePageAndSize = () => {
+        $('#pageSizeSelect').change(evt => {
+            let sizeStr = `&pageSize=${evt.target.value}`;
+            let ele = document.querySelector("#pageSizeSelect");
+            console.log(ele);
+            window.location.href = ele.getAttribute("data-href") + sizeStr;
+        });
+    }
+</script>
  </body>
  </html>

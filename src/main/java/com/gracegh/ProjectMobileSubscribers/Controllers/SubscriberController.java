@@ -56,13 +56,13 @@ import java.util.List;
                                     @RequestParam(value = "sortField", defaultValue = "id") String sortField,
                                     @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
                                     @RequestParam(value = "keyword", defaultValue = "") String keyword,
-                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                    @RequestParam(value = "pageSize" , defaultValue = "10", required = false) int pageSize,
                                     Model model) {
 //            int pageSize = 10;
 
             Page <Subscriber> page = null;
 
-            if(keyword.trim() == "") {
+            if(keyword.trim() == "" || keyword.isEmpty()) {
                 page = serviceSubscriber.getPagination(pageNo, pageSize, sortField, sortDir);
             }
             else{
