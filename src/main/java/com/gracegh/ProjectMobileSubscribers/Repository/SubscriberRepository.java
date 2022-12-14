@@ -46,9 +46,7 @@ public interface SubscriberRepository extends JpaRepository<Subscriber, Integer>
 
     Optional<Subscriber> findById(Integer id);
 
-    //custom query
-// @Query(value = "select * from subscribers s where s.service_type like %:keyword% or s.msisdn like %:keyword% or s.customer_id_owner like %:keyword% or customer_id_user like %:keyword% or s.service_start_date like %:keyword%", nativeQuery = true)
-//    List<Subscriber> findByKeyword(@Param("keyword") String Keyword);
+
     List<Subscriber> findSubscriberByMsisdn(String keyword);
 
     Subscriber findSubscriberById(Integer id);

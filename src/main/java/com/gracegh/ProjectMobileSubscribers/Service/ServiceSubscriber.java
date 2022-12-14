@@ -68,7 +68,6 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.findAll(keyword);
     }
 
-
     //editing the subscriber information...
     @Transactional
     public Subscriber updateSubscriberPage(Integer id) {

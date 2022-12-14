@@ -27,6 +27,7 @@ body {
 
 table{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: white;
 }
 
 
@@ -98,7 +99,42 @@ a:link {
     background-color:#9F496e;
 }
 
-.pagination-container{
+.pagination-container {
     display: flex;
     justify-content: space-between;
+}
+
+.bottom_arrow{
+    top: 50%;
+    content: "▼";
+    color: #b3b3b3;
+    padding-left: 16px;
+}
+
+.top_arrow{
+    bottom: 50%;
+    content: "▲";
+    color: #b3b3b3;
+    padding-left: 12px;
+}
+
+.sort-color{
+    color: #b3b3b3;
+}
+
+.d-flex-column{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.th-sort{
+    display:inline;
+    flex-flow:row;
+}
+
+i{
+    /*alignment:right;*/
+    text-align: right;
+
 }
