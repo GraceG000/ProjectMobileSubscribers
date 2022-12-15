@@ -2,7 +2,7 @@ package com.gracegh.ProjectMobileSubscribers.Entity;
 
 public enum ServiceType {
 
-    MobilePrepaid("MobilePrepaid"), MobilePostpaid("MobilePostpaid");
+    MobilePrepaid("Mobile Prepaid"), MobilePostpaid("Mobile Postpaid");
 
   private final String serviceType;
 

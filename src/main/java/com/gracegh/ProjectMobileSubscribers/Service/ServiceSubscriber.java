@@ -18,7 +18,7 @@ import java.util.Objects;
 @Service
 public class ServiceSubscriber implements SubscriberService {
 
-
+   /* lines 22 to 27 are a typical example of performing dependency injection....*/
     private final SubscriberRepository subscriberRepository;
 
     @Autowired
@@ -27,23 +27,23 @@ public class ServiceSubscriber implements SubscriberService {
     }
 
 
-    //adding a new subscriber to the database...
+    /* adding a new subscriber to the database...*/
     @Override
     public Subscriber addNewSubscriber(Subscriber subscriber) {
         return subscriberRepository.save(subscriber);
     }
-
     @Override
     public Subscriber addNewSubscriber2(Subscriber subscriber){
         return subscriberRepository.save(subscriber);
     }
 
-    //returning all mobile numbers from the database...
+    /* returning all mobile numbers from the database...*/
     @Override
     public List<Subscriber> getMsisdn() {
         return subscriberRepository.findAll();
     }
 
+    /* Backend pagination implementation...*/
     @Override
     public Page<Subscriber> getPagination(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
@@ -62,13 +62,13 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.searchSubscriber(keyword.trim().toLowerCase(), pageable);
     }
 
-
+    /* search by keyword implementation...It is not being used...*/
     @Override
     public List<Subscriber> Search(String keyword) {
         return subscriberRepository.findAll(keyword);
     }
 
-    //editing the subscriber information...
+    /* editing the subscriber information...*/
     @Transactional
     public Subscriber updateSubscriberPage(Integer id) {
 
@@ -78,6 +78,7 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriber;
     }
 
+    /* implementation for updating subscriber information...*/
     @Transactional
     public Subscriber updateSubscriber(Integer id, Subscriber subscriber){
         Subscriber existingSubscriber = (Subscriber) subscriberRepository.findById(id).orElseThrow(() -> new IllegalStateException(
@@ -97,7 +98,7 @@ public class ServiceSubscriber implements SubscriberService {
         return subscriberRepository.save(existingSubscriber);
     }
 
-    //deleting a subscriber from the database...
+    /* deleting a subscriber from the database...*/
     @Transactional
     public List<Subscriber> deleteSubscriber(Integer id){
         boolean exists = subscriberRepository.existsById(id);
@@ -108,20 +109,18 @@ public class ServiceSubscriber implements SubscriberService {
        return subscriberRepository.deleteSubscriberById(id);
     }
 
+   /* finding the subscriber by Msisdn...Although, this function is not being used...*/
     public List<Subscriber> getByKeyword(String keyword){
-        return subscriberRepository.findSubscriberByMsisdn(keyword);
+      return subscriberRepository.findSubscriberByMsisdn(keyword);
     }
 
-
-
+    /* Counting some attributes on the table for statistical purposes...*/
     public long countSubscribersStats1(){
         return subscriberRepository.countSubscriberByServiceType(ServiceType.MobilePrepaid);
     }
-
     public long countSubscribersStats2(){
         return subscriberRepository.countSubscriberByServiceTypeIs(ServiceType.MobilePostpaid);
     }
-
     public long countSubscribers(){
         return subscriberRepository.count();
     }

@@ -17,34 +17,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>-->
-
-<!--    <style>-->
-<!--        /*https://www.shutterstock.com/blog/color-palettes-for-websites*/-->
-<!--        body {-->
-<!--            background-color:#f2ebe5;-->
-<!--        }-->
-
-<!--        .btn-danger{-->
-<!--            background-color:#2b262d ;-->
-<!--        }-->
-
-<!--        .btn-primary{-->
-<!--            background-color: #9F496e;-->
-<!--        }-->
-<!--        .btn-info{-->
-<!--            background-color:#647295 ;-->
-<!--        }-->
-
-<!--        #container mt-3 h1{-->
-<!--            alignment: center;-->
-<!--        }-->
-
-<!--        .btn-sm{-->
-<!--            background-color:#647295;-->
-<!--            alignment: center;-->
-<!--        }-->
-<!--    </style>-->
 </head>
 
 <body>
@@ -52,7 +24,7 @@
 <ul>
     <li><a class="active" th:href="@{/AllNumbers}">Home Backend-Pag</a></li>
     <li><a th:href="@{/AllNumbersDT}">Home Frontend-Pag</a></li>
-    <li><a th:href="@{/stats}">Statisitcs</a></li>
+    <li><a th:href="@{/stats}">Statistics</a></li>
 </ul>
 
     <div class = "container mt-3">
@@ -65,11 +37,11 @@
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Customer_id_owner</th>
-                <th>Customer_id_user</th>
+                <th>Customer Owner Id</th>
+                <th>Customer User Id</th>
                 <th>Msisdn</th>
-                <th>Service_start_date</th>
-                <th>Service_type</th>
+                <th>Service Start Date</th>
+                <th>Service Type</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -96,15 +68,9 @@
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
         <script src= "../static/js/js/main.js" th:src="@{/js/js/main.js}"></script>
-        <!--script>
-            $(document).ready(function () {
-                console.log("setting up datatable")
-                $('#example').DataTable({
-                    select:true
-                });
-            });
-        </script>-->
+
     </div>
 
+</script>
 </body>
 </html>

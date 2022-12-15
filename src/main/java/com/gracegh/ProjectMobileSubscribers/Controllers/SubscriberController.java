@@ -1,12 +1,10 @@
 package com.gracegh.ProjectMobileSubscribers.Controllers;
 
-import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import com.gracegh.ProjectMobileSubscribers.Entity.Subscriber;
 import com.gracegh.ProjectMobileSubscribers.Service.ServiceSubscriber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +24,14 @@ import java.util.List;
             this.serviceSubscriber = serviceSubscriber;
         }
 
-        //returning all mobile numbers from the database...
+       /* returning all mobile numbers from the database...*/
         @GetMapping({"/AllNumbers"})
         public String getMsisdn(Model model){
             return findPaginated(1, "serviceType", "asc","",10, model);
         }
- /*       @GetMapping("/page/{pageNo}")
+
+       /*  for pagination...
+        @GetMapping("/page/{pageNo}")
         public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                     @RequestParam(value = "sortField", defaultValue = "id") String sortField,
                                     @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
@@ -51,14 +51,16 @@ import java.util.List;
             model.addAttribute("subs", subscribers);
             return "index";
         }*/
- @GetMapping("/page/{pageNo}")
+
+      /* for backend pagination with search implementation...*/
+        @GetMapping("/page/{pageNo}")
         public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                     @RequestParam(value = "sortField", defaultValue = "id") String sortField,
                                     @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
                                     @RequestParam(value = "keyword", defaultValue = "") String keyword,
                                     @RequestParam(value = "pageSize" , defaultValue = "10", required = false) int pageSize,
                                     Model model) {
-//            int pageSize = 10;
+           //int pageSize = 10;
 
             Page <Subscriber> page = null;
 
@@ -83,6 +85,7 @@ import java.util.List;
              return "index";
         }
 
+     /* for the frontend pagination interface...*/
         @GetMapping({"/AllNumbersDT"})
         public String getMsisdnDT(Model model){
             List<Subscriber> subscribers = serviceSubscriber.getMsisdn();
@@ -90,93 +93,70 @@ import java.util.List;
             model.addAttribute("pageName", subscribers);
             return "index-dt";
         }
-
-//        @RequestMapping(path={"/search"})
-//
-//        public String searchData(@ModelAttribute(value = "keyword") String subscriber, Model model, @Param(value="keyword") Integer keyword1) {
-//
-//            model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword1));
-//            return "index";
-//        }
-/*
-        @Param(value="keyword1")Integer keyword1,
-        @Param(value="keyword2")Integer keyword2,
-        @Param(value="Program")ServiceType Program*/
+     /* for the search functionality...Although, it is not being used...*/
         @RequestMapping(path={"/search"})
 
         public String searchData(@ModelAttribute(value = "keyword") String subscriber, Model model, @Param(value="keyword") String keyword) {
-/*
-            model.addAttribute("subs",serviceSubscriber.SearchServiceType(Program));
-            model.addAttribute("subs",serviceSubscriber.SearchIdOwner(keyword2));
-            model.addAttribute("subs",serviceSubscriber.getByKeyword(keyword1));*/
             model.addAttribute("subs",serviceSubscriber.Search(keyword));
             return "index";
         }
-
-        //adding a new subscriber...
+      /* adding a new subscriber feature which will be used in index.html...*/
         @GetMapping (path="/addon")//this is to make this function work...
         public String addNewSubscriberPage(Model model){
-            //@RequestBody allows us to take the subscriber details the client provides...
-            //invoking the service class...
-          //  serviceSubscriber.addNewSubscriber(subscriber);
+        //@RequestBody allows us to take the subscriber details the client provides...
             Subscriber subscriber= new Subscriber();
             model.addAttribute("subscriber", subscriber);
             return "addNew";
         }
-
+      /* adding a new subscriber feature which will be used in index-dt.html...*/
         @GetMapping (path="/page/addon2")//this is to make this function work...
         public String addNewSubscriberPageX(Model model){
-            //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
-          //  serviceSubscriber.addNewSubscriber(subscriber);
             Subscriber subscriber= new Subscriber();
             model.addAttribute("subscriber", subscriber);
             return "AddNew2";
         }
 
+      /* saving a new subscriber feature, which will be used in index-dt.html...*/
         @PostMapping(value = "/save-subscriber")//this is to make this function work...
         public String addNewSubscriber(@ModelAttribute Subscriber subscriber, Model model){
-            //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
             Subscriber newSubscriber = serviceSubscriber.addNewSubscriber(subscriber);
             model.addAttribute("pageName", newSubscriber);
             return "redirect:/AllNumbersDT";
         }
+//todo
 
+     /* saving a new subscriber feature, which will be implemented in index.html...*/
         @PostMapping(value = "/save-subscribers")//this is to make this function work...
         public String addNewSubscriber2(@ModelAttribute Subscriber subscriber, Model model) {
-            //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
             Subscriber newSubscriber2 = serviceSubscriber.addNewSubscriber2(subscriber);
             model.addAttribute("pageName2", newSubscriber2);
             return "redirect:/AllNumbers";
         }
 
-        //updating subscriber information...
-
+     /* updating subscriber information...
+        to do this, I used a get and a post mapping...
+        the get mapping is used to display the update.html page...*/
         @GetMapping(path="/updatePage/{id}")
         public String updateSubscriberPage(Model model, Subscriber subscriber,@PathVariable(name = "id") Integer id){
-            //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
-            //  serviceSubscriber.addNewSubscriber(subscriber);
-
             model.addAttribute("subscriber",   serviceSubscriber.updateSubscriberPage(id));
             return "update";
         }
 
+     /* the post mapping is t implement the update functionality in the backend pagination homepage...*/
         @PostMapping(path="/updateValue/{id}")
         public String updateSubscriber(@ModelAttribute Subscriber subscriber, Model model,@PathVariable(name="id")Integer id){
             Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
             model.addAttribute("updated", changedSubscriber);
             return "redirect:/AllNumbers";
         }
-
+     /* updating subscriber information from the frontend pagination page...*/
         @GetMapping(path="/updatePage2/{id}")
         public String updateSubscriberPageX(Model model, Subscriber subscriber,@PathVariable(name = "id") Integer id){
-            //@RequestBody allows us to take the subscriber details the client provides...
             //invoking the service class...
-            //  serviceSubscriber.addNewSubscriber(subscriber);
-
             model.addAttribute("subscriber",   serviceSubscriber.updateSubscriberPage(id));
             return "update";
         }
@@ -187,34 +167,15 @@ import java.util.List;
             model.addAttribute("updated", changedSubscriber);
             return "redirect:/AllNumbersDT";
         }
-        //deleting a mobile subscriber...
+
+     /* deleting a mobile subscriber...*/
         @GetMapping (path = "/delete/{id}")
         public String deleteSubscriber(@PathVariable(name="id") Integer id){
-          serviceSubscriber.deleteSubscriber(id);
-          return "redirect:/AllNumbers";
-
+            serviceSubscriber.deleteSubscriber(id);
+            return "redirect:/AllNumbers";
         }
-//
-//        @GetMapping(path="/countSubscribers")
-//        @ResponseBody
-//        public long countSubscribers(){
-//
-//            return serviceSubscriber.countSubscribers();
-//            }
-//            @GetMapping(path="/countSubscribers")
-//        @ResponseBody
-//        public long countPostpaid(){
-//
-//            return serviceSubscriber.countSubscribersStats1();
-//            }
-//            @GetMapping(path="/countSubscribers")
-//        @ResponseBody
-//        public long countPrepaid(){
-//
-//            return serviceSubscriber.countSubscribersStats2();
-//            }
-//
 
+     /* displaying the database/table statistics...*/
         @GetMapping(path="/stats")
         public String setStatsPage(Model model){
             long count = serviceSubscriber.countSubscribers();

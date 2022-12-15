@@ -37,7 +37,6 @@
         <a th:href="@{/page/addon2}" class="btn btn-primary btn-sm mb-3" >Add Subscriber</a>
 
     <div class = "row container mt-3 pagination">
-
         <div class="col-md-5" align="left">
             Show entries
             <label>
@@ -50,13 +49,12 @@
             </label>
         </div>
     <div class="pagination" align="right">
-
         <form th:action="@{/page/1}" method = "get" >
-        <label>
-           <input type ="text" name="keyword" th:value="${keyword}" placeholder="Type here" class="form-control-sm" size = "30" style="padding:5px" >
-        </label>
+            <label>
+               <input type ="text" name="keyword" th:value="${keyword}" placeholder="Type here" class="form-control-sm" size = "30" style="padding:5px" >
+            </label>
 
-           <button type="submit" class="btn btn-info">Search</button>
+            <button type="submit" class="btn btn-info">Search</button>
             <a th:href="@{/AllNumbers}" class="btn btn-info">Reset</a>
         </form>
     </div>
@@ -64,70 +62,75 @@
     </div>
 
     <div class="table">
-
-        <table id="example" class = "table table-striped table-bordered table-hover" style="width:100%">
-            <thead  class="table-dark">
-            <tr>
-                <th>
-                    <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Id
+        <!--Making the entire table a form, so that we can use javascript to implement a safe-delete feature...-->
+        <form th:action="@{/delete/}" method="get" id="delete-form">
+            <table id="example" class = "table table-striped table-bordered table-hover" style="width:100%">
+                <thead  class="table-dark">
+                <tr>
+                    <th>
+                        <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Id
+                         <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
+                         <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
+                        </a>
+                        </span>
+                    </th>
+                    <th>
+                       <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=customerIdOwner&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}" >Customer Owner Id
                         <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
-                        <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i></a>
-                    </span>
-                </th>
-                <th>
-                   <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=customerIdOwner&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}" >Customer Owner Id
-                    <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
-                    <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
-                   </a>
-                   </span>
-                </th>
-                <th>
-                    <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=customerIdUser&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Customer User Id
-                    <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
-                    <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
-                    </a>
-                    </span>
-                </th>
-                <th>
-                    <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=msisdn&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Msisdn
-                    <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
-                    <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
-                    </a>
-                    </span>
-                </th>
-                <th>
-                    <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=serviceStartDate&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Service Start Date
-                     <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
-                     <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
-                    </a>
-                </span>
-                </th>
-                <th>
-                    <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=serviceType&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Service Type
-                    <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
-                    <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
-                    </a>
-                    </span></th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each ="subscribers:${subs}">
+                        <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
+                       </a>
+                       </span>
+                    </th>
+                    <th>
+                        <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=customerIdUser&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Customer User Id
+                        <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
+                        <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
+                        </a>
+                        </span>
+                    </th>
+                    <th>
+                        <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=msisdn&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Msisdn
+                        <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
+                        <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
+                        </a>
+                        </span>
+                    </th>
+                    <th>
+                        <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=serviceStartDate&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Service Start Date
+                         <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
+                         <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
+                        </a>
+                        </span>
+                    </th>
+                    <th>
+                        <span><a th:href="@{'/page/' + ${currentPage} + '?sortField=serviceType&sortDir=' + ${reverseSortDir}+ '&keyword='+${keyword}+'&pageSize=' +${pageSize}}">Service Type
+                        <i class="fa fa-sort-asc sort-color d-flex-column" style="float:right;"}></i>
+                        <i class="fa fa-sort-desc sort-color d-flex-column" style="float:right;"}></i>
+                        </a>
+                        </span></th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
 
-                <td th:text="${subscribers.id}"></td>
-                <td th:text="${subscribers.customerIdOwner}"></td>
-                <td th:text="${subscribers.customerIdUser}"></td>
-                <td th:text="${subscribers.msisdn}"></td>
-                <td th:text="${subscribers.serviceStartDate}"></td>
-                <td th:text="${subscribers.serviceType}"></td>
-                <td>
-                    <a th:href="@{/updatePage/{id}(id=${subscribers.id})}" class= "btn btn-primary">Edit</a>
-                    <a th:href="@{/delete/{id}(id=${subscribers.id})}"  class= "btn btn-danger" onclick="myFunction(e)">Delete</a>
-                </td>
-            </tr>
+                    <tr th:each ="subscribers:${subs}">
 
-            </tbody>
-        </table>
+                        <td th:text="${subscribers.id}"></td>
+                        <td th:text="${subscribers.customerIdOwner}"></td>
+                        <td th:text="${subscribers.customerIdUser}"></td>
+                        <td th:text="${subscribers.msisdn}"></td>
+                        <td th:text="${subscribers.serviceStartDate}"></td>
+                        <td th:text="${subscribers.serviceType}"></td>
+                        <td>
+                            <a th:href="@{/updatePage/{id}(id=${subscribers.id})}" class= "btn btn-primary">Edit</a>
+                            <!--                    <a th:href="@{/delete/{id}(id=${subscribers.id})}"  class= "btn btn-danger" onclick="myFunction(e)">Delete</a>-->
+                            <button type="button" th:data-href="${subscribers.id}"  class= "btn btn-danger delete_btn" >Delete</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </form>
     </div>
 
 </div>
@@ -154,33 +157,45 @@
    </div>
 
    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
+<!--The scripts below are for implementing page sizing and safe-delete...-->
     <script th:inline="javascript">
         $(document).ready(() => {
             changePageAndSize();
+            /*Whenever the button is clicked, it will call function(e)...*/
+            $(".delete_btn").click(function(e){
+                myFunction(e);
+            })
         });
 
         changePageAndSize = () => {
             $('#pageSizeSelect').change(evt => {
                 let sizeStr = `&pageSize=${evt.target.value}`;
                 let ele = document.querySelector("#pageSizeSelect");
-                console.log(ele);
+                /*let ele2 = $('#pageSizeSelect');
+                console.log("Vanilla JS : ", ele.getAttribute("data-href") , "\nJQuery : ", ele2[0].attributes["data-href"]);*/
                 window.location.href = ele.getAttribute("data-href") + sizeStr;
             });
         }
 
         function myFunction(e) {
-            e.preventDefault();
+
             var txt;
             if (confirm("Are you sure you want to delete?")==true) {
                 txt = "You are deleting the subscriber information!";
-                return true;
+                let del = document.querySelector("#delete-form");
+
+                let impl = $(e.target).attr('data-href');
+                let new_action = del.getAttribute("action") + impl;
+                del.setAttribute('action', new_action);
+                // $("#delete-form").attr('action', new_action);
+                $("#delete-form").submit();
             } else {
                 txt = "You pressed Cancel!"
-                return false;
             }
-            document.getElementById("demo").innerHTML = txt;
+            console.log(txt);
         }
+        /*window.myFunction = myFunction;*/
+
     </script>
  </body>
  </html>

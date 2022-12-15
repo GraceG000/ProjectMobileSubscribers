@@ -37,11 +37,6 @@
 
         }
 
-        .card-header{
-            background-color:#647295;
-            text-align: center;
-        }
-
         ul {
             list-style-type: none;
             margin: 0;
@@ -78,13 +73,16 @@
             color:#2b262d;
             margin-right: 10px;
         }
+        .container{
+            margin-top:10%;
+        }
     </style>
 </head>
 <body>
 <ul>
     <li><a class="active" th:href="@{/AllNumbers}">Home Backend-Pag</a></li>
     <li><a th:href="@{/AllNumbersDT}">Home Frontend-Pag</a></li>
-    <li><a th:href="@{/stats}">Statisitcs</a></li>
+    <li><a th:href="@{/stats}">Statistics</a></li>
 </ul>
 
 <div class="container mt-3">

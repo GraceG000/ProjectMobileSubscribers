@@ -1,21 +1,16 @@
 package com.gracegh.ProjectMobileSubscribers.Entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gracegh.ProjectMobileSubscribers.Entity.ServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity//to enable this class to interact with the jpa database...
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "subscribers")
+@NoArgsConstructor//to create an empty constructor without manually creating it...
+@AllArgsConstructor// automating the process of creating a constructor that sets all the fields...
+@Table(name = "subscribers")//to make the class  a table...
 public class Subscriber {
 
     @Id//to make the subscriber id a primary key...
@@ -25,7 +20,7 @@ public class Subscriber {
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.AUTO)//for generating the primary key...
-    //setting the field of the class...
+    //setting the fields of the class...
     @Column(name="id")
     private Integer id;
     @Column(name="msisdn", unique = true)
@@ -38,7 +33,7 @@ public class Subscriber {
     @Column(name = "service_type")
     private ServiceType serviceType;
     @Column(name = "service_start_date")
-//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private String serviceStartDate;
 
 
