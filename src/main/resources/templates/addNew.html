@@ -40,26 +40,27 @@
 <body>
 <div class ="container">
     <h1>Add New Subscriber</h1>
-    <form th:action="@{/save-subscriber}" th:object="${subscriber}" method="POST">
+    <form th:action="@{/save-subscriber}" th:object="${subscriber}" method="POST" modelAttribute="subscriber">
         <!--<div class="mb-3 mt-3">
             <input type="hidden" th:field="*{id}">
        </div>-->
         <div class="mb-3">
-            <label for="OwnerId" class="form-label">Owner Id:</label>
-                <input type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
+            <label for="OwnerId" class="form-label" path="customerIdOwner">Owner Id:</label>
+                <input path="customerIdOwner" type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
         </div>
         <div class="mb-3">
-            <label for="UserId" class="form-label">User Id:</label>
-                <input type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="UserId"  class="form-control" size="50">
-        </div>
-
-        <div class="mb-3">
-        <label th:for="msisdn" class="form-label">Mobile Number:</label>
-                <input type="text" th:field="*{msisdn}" name="msisdn" placeholder="Phone number" id="msisdn" class="form-control" size="50">
+            <label for="UserId" class="form-label" path="customerIdUser">User Id:</label>
+                <input path="customerIdUser" type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="UserId"  class="form-control" size="50">
         </div>
 
         <div class="mb-3">
-        <label  for="serviceType" class="form-label">Service Type:</label>
+        <label path="msisdn" th:for="msisdn" class="form-label">Mobile Number:</label>
+                <input path="msisdn" type="text" th:field="*{msisdn}" name="msisdn" placeholder="eg.+233 (050) 646-2409" id="msisdn" class="form-control" size="50">
+                <p th:if="${#fields.hasErrors('msisdn')}" th:errors="*{msisdn}" class="alert alert-danger"></p>
+        </div>
+
+        <div class="mb-3">
+        <label for="serviceType" class="form-label">Service Type:</label>
                 <select type="text" th:field="*{serviceType}" name="serviceType" id="serviceType" class="form-control" size="1">
                     <option value = "Mobile Prepaid"> Mobile Prepaid</option>
                     <option value = "Mobile Postpaid"> Mobile Postpaid</option>
@@ -67,8 +68,8 @@
         </div>
 
         <div class="mb-3">
-        <label for="serviceStartDate" class="form-label">Service Start Date:</label>
-                <input type="date" th:field="*{serviceStartDate}" name="serviceStartDate" placeholder="Start date" id ="serviceStartDate" class="form-control" size="50">
+        <label path="serviceStartDate" for="serviceStartDate" class="form-label">Service Start Date:</label>
+                <input path="serviceStartDate" type="date" th:field="*{serviceStartDate}" name="serviceStartDate" placeholder="Start date" id ="serviceStartDate" class="form-control" size="50">
         </div>
 
         <div class="mb-3">
