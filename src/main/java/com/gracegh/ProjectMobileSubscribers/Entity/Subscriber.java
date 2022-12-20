@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @Entity//to enable this class to interact with the jpa database...
 @Data
@@ -33,11 +31,13 @@ public class Subscriber {
     private String msisdn = "";
 
     @Column(name = "customer_id_owner",unique = true)
-    @Digits(fraction = 0, integer = 4)
+    @Min(1000)
+    @Max(9999)
     private Integer customerIdOwner;
 
     @Column(name = "customer_id_user", unique = true)//we use the @Column annotation because we will be performing a native query...
-    @Digits(fraction = 0, integer = 4)
+    @Min(1000)
+    @Max(9999)
     private Integer customerIdUser;
 
     @Enumerated(EnumType.STRING)

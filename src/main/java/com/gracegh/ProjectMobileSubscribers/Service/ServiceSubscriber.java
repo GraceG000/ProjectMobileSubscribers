@@ -91,7 +91,7 @@ public class ServiceSubscriber implements SubscriberService {
             existingSubscriber.setServiceType(subscriber.getServiceType());
         }
 
-        if(existingSubscriber.getServiceType() != null && !Objects.equals(existingSubscriber.getServiceStartDate(), subscriber.getServiceStartDate())){
+        if(existingSubscriber.getServiceStartDate() != null && !Objects.equals(existingSubscriber.getServiceStartDate(), subscriber.getServiceStartDate())){
             existingSubscriber.setServiceStartDate(subscriber.getServiceStartDate());
         }
 

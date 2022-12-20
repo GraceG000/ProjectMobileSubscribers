@@ -45,12 +45,14 @@
             <input type="hidden" th:field="*{id}">
        </div>-->
         <div class="mb-3">
-            <label for="OwnerId" class="form-label" path="customerIdOwner">Owner Id:</label>
-                <input path="customerIdOwner" type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
+            <label path="customerIdOwner" for="OwnerId" class="form-label">Owner Id:</label>
+                <input path="customerIdOwner" type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="range:1000-9999" id="OwnerId" class="form-control" size="50">
+            <p th:if="${#fields.hasErrors('customerIdOwner')}" th:errors="*{customerIdOwner}" class="alert alert-danger"></p>
         </div>
         <div class="mb-3">
-            <label for="UserId" class="form-label" path="customerIdUser">User Id:</label>
-                <input path="customerIdUser" type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="UserId"  class="form-control" size="50">
+            <label path="customerIdUser" for="UserId" class="form-label">User Id:</label>
+                <input path="customerIdUser" type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="range:1000-9999" id="UserId"  class="form-control" size="50">
+            <p th:if="${#fields.hasErrors('customerIdUser')}" th:errors="*{customerIdUser}" class="alert alert-danger"></p>
         </div>
 
         <div class="mb-3">

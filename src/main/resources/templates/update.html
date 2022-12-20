@@ -42,13 +42,13 @@
     <h1>Update Subscriber</h1>
     <form th:action="@{/updateValue/{id}(id=${subscriber.id})}" th:object="${subscriber}" method="POST">
         <div class="mb-3">
-        <label for="OwnerId" class="form-label">Owner Id:</label>
-        <input type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
+        <label for="customerIdOwner" class="form-label">Owner Id:</label>
+        <input type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="customerIdOwner" class="form-control" size="50">
 </div>
 
 <div class="mb-3">
-    <label for="UserId" class="form-label">User Id:</label>
-    <input type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="UserId"  class="form-control" size="50" >
+    <label for="customerIdUser" class="form-label">User Id:</label>
+    <input type="text" th:field="*{customerIdUser}" name="customerIdUser" placeholder="User id" id="customerIdUser"  class="form-control" size="50" >
 </div>
 
 <div class="mb-3">
