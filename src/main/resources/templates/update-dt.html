@@ -40,7 +40,7 @@
 <body>
 <div class ="container">
     <h1>Update Subscriber</h1>
-    <form th:action="@{/updateValue2/{id}(id=${subscriber.id})}" th:object="${subscriber}" method="POST">
+    <form th:action="@{/updateValue2/{id}(id=${subscriber.id})}" th:object="${subscriber}" method="POST" modelAttribute="subscriber">
         <div class="mb-3">
             <label for="OwnerId" class="form-label">Owner Id:</label>
             <input type="text" th:field="*{customerIdOwner}" name="customerIdOwner" placeholder="Owner id" id="OwnerId" class="form-control" size="50">
@@ -53,7 +53,8 @@
 
         <div class="mb-3">
             <label th:for="msisdn" class="form-label">Mobile Number:</label>
-            <input type="text" th:field="*{msisdn}" name="msisdn" placeholder="Phone number" id="msisdn" class="form-control" size="50">
+            <input path ="msisdn" type="text" th:field="*{msisdn}" name="msisdn" placeholder="Phone number" id="msisdn" class="form-control" size="50">
+            <p th:if="${#fields.hasErrors('msisdn')}" th:errors="*{msisdn}" class="alert alert-danger"></p>
         </div>
 
         <div class="mb-3">

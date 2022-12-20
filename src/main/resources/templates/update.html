@@ -53,7 +53,8 @@
 
 <div class="mb-3">
     <label th:for="msisdn" class="form-label">Mobile Number:</label>
-    <input type="text" th:field="*{msisdn}" name="msisdn" placeholder="Phone number" id="msisdn" class="form-control" size="50">
+    <input path ="msisdn" type="text" th:field="*{msisdn}" name="msisdn" placeholder="eg.+233 (050) 646-2409" id="msisdn" class="form-control" size="50">
+    <p th:if="${#fields.hasErrors('msisdn')}" th:errors="*{msisdn}" class="alert alert-danger"></p>
 </div>
 
 <div class="mb-3">

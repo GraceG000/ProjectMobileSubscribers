@@ -121,11 +121,16 @@ import java.util.List;
 
       /* saving a new subscriber feature, which will be used in index-dt.html...*/
         @PostMapping(value = "/save-subscriber")//this is to make this function work...
-        public String addNewSubscriber(@Valid @ModelAttribute Subscriber subscriber, Model model){
+        public String addNewSubscriber(@Valid @ModelAttribute Subscriber subscriber, Errors errors, Model model){
             //invoking the service class...
-            Subscriber newSubscriber = serviceSubscriber.addNewSubscriber(subscriber);
-            model.addAttribute("pageName", newSubscriber);
-            return "redirect:/AllNumbersDT";
+
+            if(errors.hasErrors()){
+                return "redirect:/AllNumbersDT";
+            }else{
+                Subscriber newSubscriber = serviceSubscriber.addNewSubscriber(subscriber);
+                model.addAttribute("pageName", newSubscriber);
+                return "redirect:/AllNumbersDT";
+            }
         }
 //todo
 
@@ -154,10 +159,16 @@ import java.util.List;
 
      /* the post mapping is t implement the update functionality in the backend pagination homepage...*/
         @PostMapping(path="/updateValue/{id}")
-        public String updateSubscriber(@Valid @ModelAttribute Subscriber subscriber, Model model,@PathVariable(name="id")Integer id){
-            Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
-            model.addAttribute("updated", changedSubscriber);
-            return "redirect:/AllNumbers";
+        public String updateSubscriber(@Valid @ModelAttribute Subscriber subscriber, Errors errors, Model model,@PathVariable(name="id")Integer id){
+
+            if(errors.hasErrors()){
+                return "redirect:/AllNumbers";
+            }else{
+                Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
+                model.addAttribute("updated", changedSubscriber);
+                return "redirect:/AllNumbers";
+            }
+
         }
      /* updating subscriber information from the frontend pagination page...*/
         @GetMapping(path="/updatePage2/{id}")
@@ -168,10 +179,15 @@ import java.util.List;
         }
 
         @PostMapping(path="/updateValue2/{id}")
-        public String updateSubscriberX(@Valid @ModelAttribute Subscriber subscriber, Model model,@PathVariable(name="id")Integer id){
-            Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
-            model.addAttribute("updated", changedSubscriber);
-            return "redirect:/AllNumbersDT";
+        public String updateSubscriberX(@Valid @ModelAttribute Subscriber subscriber, Errors errors, Model model,@PathVariable(name="id")Integer id){
+
+            if(errors.hasErrors()){
+                return "redirect:/AllNumbersDT";
+            }else{
+                Subscriber changedSubscriber = serviceSubscriber.updateSubscriber(id, subscriber);
+                model.addAttribute("updated", changedSubscriber);
+                return "redirect:/AllNumbersDT";
+            }
         }
 
      /* deleting a mobile subscriber...*/
